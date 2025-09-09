@@ -11,10 +11,10 @@
  */
 
 import { composeMarkdown } from '../src/mod.ts';
-import { parse } from 'https://deno.land/std@0.208.0/flags/mod.ts';
+import { parseArgs } from '@std/cli/parse-args';
 
 // Parse command line arguments
-const args = parse(Deno.args, {
+const args = parseArgs(Deno.args, {
   boolean: ['help', 'parallel', 'verbose'],
   string: ['max-depth', 'on-missing-slot', 'on-file-error'],
   alias: {

@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std@0.208.0/assert/mod.ts';
+import { assertEquals } from '@std/assert';
 import { composeMarkdown } from '../src/compose.ts';
 import type { MarkdownNode } from '../src/types.ts';
 
@@ -131,7 +131,6 @@ This example demonstrates mixing content and file sources.
 - ✅ Function-based dynamic content
 - ✅ Circular dependency detection
 - ✅ Configurable error handling
-
 
 End of mixed content example.`;
 

@@ -3,7 +3,7 @@
  * Manages output formatting and destination (stdout vs file)
  */
 
-import { resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { resolve } from '@std/path';
 import type { CliOptions, ComposeError, ComposeResult } from '../types.ts';
 
 /**

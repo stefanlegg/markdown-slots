@@ -3,7 +3,7 @@
  * Handles loading JSON configuration and merging with CLI arguments
  */
 
-import { dirname, resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { dirname, resolve } from '@std/path';
 import type { CliOptions, JsonConfig, MarkdownNode, MarkdownSlotSource } from '../types.ts';
 
 /**

@@ -1,4 +1,4 @@
-import { assertEquals, assertThrows } from 'https://deno.land/std@0.208.0/assert/mod.ts';
+import { assertEquals, assertThrows } from '@std/assert';
 import { CircularDependencyTracker } from '../src/dependency-tracker.ts';
 
 Deno.test('CircularDependencyTracker Integration', async (t) => {
