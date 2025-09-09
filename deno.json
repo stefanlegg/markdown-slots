@@ -1,0 +1,38 @@
+{
+  "name": "@stefanlegg/markdown-slots",
+  "version": "0.1.0",
+  "license": "MIT",
+  "exports": "./mod.ts",
+  "tasks": {
+    "dev": "deno run --watch src/mod.ts",
+    "test": "deno test --allow-read --allow-write --allow-run tests/",
+    "test:watch": "deno test --allow-read --allow-write --watch tests/",
+    "fmt": "deno fmt",
+    "fmt:check": "deno fmt --check",
+    "lint": "deno lint",
+    "check": "deno check src/mod.ts",
+    "build": "deno run -A build.ts",
+    "publish": "deno publish"
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "preserve"
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.window"
+    ],
+    "strict": true
+  }
+}

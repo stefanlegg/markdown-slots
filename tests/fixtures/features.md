@@ -1,0 +1,5 @@
+- ✅ Slot-based composition
+- ✅ File and content sources
+- ✅ Function-based dynamic content
+- ✅ Circular dependency detection
+- ✅ Configurable error handling
