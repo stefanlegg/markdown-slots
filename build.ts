@@ -94,7 +94,7 @@ main().catch((error) => {
   },
   mappings: {
     // Map Deno standard library imports to Node.js equivalents
-    'https://deno.land/std@0.208.0/path/mod.ts': {
+    '@std/path': {
       name: 'node:path',
     },
   },

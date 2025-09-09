@@ -1,8 +1,11 @@
 {
   "name": "@stefanlegg/markdown-slots",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "exports": "./src/mod.ts",
+  "publish": {
+    "npm": true
+  },
   "tasks": {
     "dev": "deno run --watch src/mod.ts",
     "test": "deno test --allow-read --allow-write --allow-run tests/",
@@ -34,5 +37,10 @@
       "deno.window"
     ],
     "strict": true
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.14",
+    "@std/cli": "jsr:@std/cli@^1.0.22",
+    "@std/path": "jsr:@std/path@^1.1.2"
   }
 }

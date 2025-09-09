@@ -2,7 +2,7 @@
  * File system adapter interface and Deno implementation
  */
 
-import { dirname, isAbsolute, join, resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { dirname, isAbsolute, join, resolve } from '@std/path';
 
 /**
  * Abstract interface for file system operations
@@ -92,6 +92,6 @@ export class DenoFileSystem implements FileSystemAdapter {
    * Join path segments
    */
   joinPath(...segments: string[]): string {
-    return join(...segments);
+    return join(...segments as [string, ...string[]]);
   }
 }

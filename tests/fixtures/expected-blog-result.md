@@ -33,5 +33,5 @@ This concludes our exploration of the topic.
 
 ## About the Author
 
-**Jane Developer** is a software engineer with expertise in developer tools and documentation systems. Connect with them on [GitHub](!-- outlet: github-url --).
+**Jane Developer** is a software engineer with expertise in developer tools and documentation systems. Connect with them on [GitHub](https://github.com/jane-dev).
 

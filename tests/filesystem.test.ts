@@ -1,5 +1,5 @@
-import { assertEquals, assertRejects } from 'https://deno.land/std@0.208.0/assert/mod.ts';
-import { dirname, join, resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { assertEquals, assertRejects } from '@std/assert';
+import { dirname, join, resolve } from '@std/path';
 import { DenoFileSystem } from '../src/filesystem.ts';
 
 Deno.test('DenoFileSystem', async (t) => {

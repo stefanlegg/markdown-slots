@@ -5,7 +5,6 @@
 
 ---
 
-
 ## Overview
 
 This is a comprehensive guide to our project.
@@ -17,7 +16,6 @@ This is a comprehensive guide to our project.
 - ✅ Function-based dynamic content
 - ✅ Circular dependency detection
 - ✅ Configurable error handling
-
 
 ### Installation
 
@@ -40,11 +38,8 @@ const result = await composeMarkdown({
 console.log(result.markdown); // "# Hello World"
 ```
 
-
-
 ## Conclusion
 
 ---
 
 _Generated with ❤️ by Markdown Slots_
-

@@ -3,7 +3,7 @@
  * Covers basic JSON config patterns, nested compositions, and CLI overrides
  */
 
-import { assertEquals } from 'https://deno.land/std@0.208.0/assert/mod.ts';
+import { assertEquals } from '@std/assert';
 
 import { CliInterface } from '../../src/cli/cli-interface.ts';
 import type { JsonConfig } from '../../src/types.ts';

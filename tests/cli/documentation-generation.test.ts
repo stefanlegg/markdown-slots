@@ -4,8 +4,8 @@
  * Requirements: 7.1, 5.1
  */
 
-import { assertEquals, assertStringIncludes } from 'https://deno.land/std@0.208.0/assert/mod.ts';
-import { resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { assertEquals, assertStringIncludes } from '@std/assert';
+import { resolve } from '@std/path';
 
 const CLI_PATH = resolve('./cli.ts');
 
