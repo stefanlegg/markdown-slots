@@ -1,8 +1,4 @@
 /**
- * Core types for the Markdown Slots library
- */
-
-/**
  * Represents different sources that can fill a slot
  */
 export type MarkdownSlotSource =
