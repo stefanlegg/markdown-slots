@@ -3,7 +3,7 @@
 interface VersionConfig {
   name: string;
   version: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 type VersionType = 'patch' | 'minor' | 'major';
