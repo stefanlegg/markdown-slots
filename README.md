@@ -1,6 +1,7 @@
 # Markdown Slots
 
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](#)
+[![JSR](https://jsr.io/badges/@stefanlegg/markdown-slots)](https://jsr.io/@stefanlegg/markdown-slots)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](#)
 [![Deno](https://img.shields.io/badge/Deno-1.40+-green.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -20,11 +21,11 @@ A powerful and flexible TypeScript library for composing markdown content with s
 ## 📦 Installation
 
 ```bash
-# For Deno
-import { composeMarkdown } from 'https://deno.land/x/markdown_slots/mod.ts';
+# For Deno with JSR
+import { composeMarkdown } from 'jsr:@stefanlegg/markdown-slots';
 
-# For Node.js (when published)
-npm install markdown-slots
+# Or from source
+import { composeMarkdown } from 'https://deno.land/x/markdown_slots/mod.ts';
 ```
 
 ## 🚀 Quick Start
@@ -73,27 +74,18 @@ The Markdown Slots CLI provides a convenient way to compose markdown files witho
 
 ### Installation and Basic Usage
 
-#### Node.js/NPM
-
 ```bash
-# Install globally
-npm install -g markdown-slots
+# Run directly from JSR (no installation needed)
+deno run -A jsr:@stefanlegg/markdown-slots/cli --help
 
-# Or use directly with npx
-npx markdown-slots --help
-```
-
-#### Deno
-
-```bash
-# Run directly from URL (no installation needed)
+# Or run from source URL
 deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts --help
 
 # Create an alias for convenience
-alias markdown-slots="deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts"
+alias markdown-slots="deno run -A jsr:@stefanlegg/markdown-slots/cli"
 
 # Or install globally with deno install
-deno install --allow-read --allow-write --name markdown-slots https://deno.land/x/markdown_slots/cli.ts
+deno install -A --name markdown-slots jsr:@stefanlegg/markdown-slots/cli
 
 # Then use like any other command
 markdown-slots --help
@@ -101,20 +93,9 @@ markdown-slots --help
 
 ### Command Syntax
 
-#### Node.js/NPM
-
 ```bash
-npx markdown-slots compose <template> [options]
-
-# Short form (compose command is optional)
-npx markdown-slots <template> [options]
-```
-
-#### Deno
-
-```bash
-# Direct URL usage
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose <template> [options]
+# Direct JSR usage
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose <template> [options]
 
 # With alias or installed command
 markdown-slots compose <template> [options]
@@ -127,32 +108,20 @@ markdown-slots <template> [options]
 
 #### Inline Slots
 
-**Node.js/NPM:**
-
 ```bash
 # Using long flags
-npx markdown-slots compose template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="My Document" \
   --slot author="John Doe" \
   --slot version="1.0.0"
 
 # Using short flags
-npx markdown-slots template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md \
   -s title="My Document" \
   -s author="John Doe" \
   -s version="1.0.0"
-```
 
-**Deno:**
-
-```bash
-# Using long flags
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose template.md \
-  --slot title="My Document" \
-  --slot author="John Doe" \
-  --slot version="1.0.0"
-
-# With installed command (using short flags)
+# With installed command
 markdown-slots template.md \
   -s title="My Document" \
   -s author="John Doe" \
@@ -161,32 +130,20 @@ markdown-slots template.md \
 
 #### File-Based Slots
 
-**Node.js/NPM:**
-
 ```bash
 # Reference external files with @ prefix
-npx markdown-slots compose template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@./content/main.md \
   --slot footer=@./shared/footer.md \
   --output result.md
 
 # Short flags work too
-npx markdown-slots template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md \
   -s content=@./content/main.md \
   -s footer=@./shared/footer.md \
   -o result.md
-```
 
-**Deno:**
-
-```bash
-# Reference external files with @ prefix
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose template.md \
-  --slot content=@./content/main.md \
-  --slot footer=@./shared/footer.md \
-  --output result.md
-
-# With installed command (short flags)
+# With installed command
 markdown-slots template.md \
   -s content=@./content/main.md \
   -s footer=@./shared/footer.md \
@@ -197,7 +154,7 @@ markdown-slots template.md \
 
 ```bash
 # Combine inline content and file references
-npx markdown-slots compose template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Mixed Example" \
   --slot description=@intro.md \
   --slot author="Jane Smith" \
@@ -274,32 +231,12 @@ The `options` section supports all programmatic API options:
 
 #### Using JSON Configuration
 
-**Node.js/NPM:**
-
 ```bash
 # Load configuration from JSON file
-npx markdown-slots compose template.md --json config.json
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose template.md --json config.json
 
 # Override specific slots from command line (CLI takes precedence)
-npx markdown-slots compose template.md \
-  --json config.json \
-  --slot title="Override Title" \
-  --slot version="2.0.0"
-
-# Multiple JSON files (later files override earlier ones)
-npx markdown-slots compose template.md \
-  --json base-config.json \
-  --json environment-config.json
-```
-
-**Deno:**
-
-```bash
-# Load configuration from JSON file
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose template.md --json config.json
-
-# Override specific slots from command line (CLI takes precedence)
-markdown-slots compose template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --json config.json \
   --slot title="Override Title" \
   --slot version="2.0.0"
@@ -314,24 +251,9 @@ markdown-slots compose template.md \
 
 #### Documentation Generation
 
-**Node.js/NPM:**
-
 ```bash
 # Generate README from template
-npx markdown-slots compose README.template.md \
-  --slot project_name="My Project" \
-  --slot version="1.0.0" \
-  --slot description=@docs/description.md \
-  --slot installation=@docs/installation.md \
-  --slot usage=@docs/usage.md \
-  --output README.md
-```
-
-**Deno:**
-
-```bash
-# Generate README from template
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose README.template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose README.template.md \
   --slot project_name="My Project" \
   --slot version="1.0.0" \
   --slot description=@docs/description.md \
@@ -353,7 +275,7 @@ markdown-slots compose README.template.md \
 
 ```bash
 # Create blog post from template
-npx markdown-slots compose blog-template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose blog-template.md \
   --slot title="Getting Started with Markdown Slots" \
   --slot author="Jane Developer" \
   --slot date="2024-01-15" \
@@ -366,14 +288,14 @@ npx markdown-slots compose blog-template.md \
 
 ```bash
 # English version
-npx markdown-slots compose docs-template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs-template.md \
   --json configs/base-config.json \
   --slot language="en" \
   --slot content=@content/en/user-guide.md \
   --output docs/en/user-guide.md
 
 # Spanish version
-npx markdown-slots compose docs-template.md \
+deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs-template.md \
   --json configs/base-config.json \
   --slot language="es" \
   --slot content=@content/es/user-guide.md \
@@ -382,18 +304,6 @@ npx markdown-slots compose docs-template.md \
 
 ### Integration with Build Systems
 
-#### NPM Scripts
-
-```json
-{
-  "scripts": {
-    "docs:build": "npx markdown-slots compose docs/template.md --json docs/config.json --output README.md",
-    "docs:dev": "npx markdown-slots compose docs/template.md --json docs/dev-config.json --output README.md",
-    "docs:watch": "chokidar 'docs/**/*.md' -c 'npm run docs:dev'"
-  }
-}
-```
-
 #### Deno Tasks
 
 Create a `deno.json` file with tasks:
@@ -401,9 +311,9 @@ Create a `deno.json` file with tasks:
 ```json
 {
   "tasks": {
-    "docs:build": "deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose docs/template.md --json docs/config.json --output README.md",
-    "docs:dev": "deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose docs/template.md --json docs/dev-config.json --output README.md",
-    "docs:watch": "deno run --allow-read --allow-write --watch docs/ https://deno.land/x/markdown_slots/cli.ts compose docs/template.md --json docs/config.json --output README.md"
+    "docs:build": "deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs/template.md --json docs/config.json --output README.md",
+    "docs:dev": "deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs/template.md --json docs/dev-config.json --output README.md",
+    "docs:watch": "deno run -A --watch docs/ jsr:@stefanlegg/markdown-slots/cli compose docs/template.md --json docs/config.json --output README.md"
   }
 }
 ```
@@ -423,26 +333,11 @@ deno task docs:watch
 
 #### Makefile Integration
 
-**Node.js/NPM:**
-
 ```makefile
 docs: README.md
 
 README.md: docs/template.md docs/config.json
-	npx markdown-slots compose docs/template.md \
-		--json docs/config.json \
-		--slot build_date="$(shell date)" \
-		--slot version="$(VERSION)" \
-		--output README.md
-```
-
-**Deno:**
-
-```makefile
-docs: README.md
-
-README.md: docs/template.md docs/config.json
-	deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose docs/template.md \
+	deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs/template.md \
 		--json docs/config.json \
 		--slot build_date="$(shell date)" \
 		--slot version="$(VERSION)" \
@@ -450,20 +345,6 @@ README.md: docs/template.md docs/config.json
 ```
 
 #### GitHub Actions
-
-**Node.js/NPM:**
-
-```yaml
-- name: Generate Documentation
-  run: |
-    npx markdown-slots compose docs/template.md \
-      --json docs/config.json \
-      --slot version="${{ github.ref_name }}" \
-      --slot commit="${{ github.sha }}" \
-      --output README.md
-```
-
-**Deno:**
 
 ```yaml
 - name: Setup Deno
@@ -473,7 +354,7 @@ README.md: docs/template.md docs/config.json
 
 - name: Generate Documentation
   run: |
-    deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts compose docs/template.md \
+    deno run -A jsr:@stefanlegg/markdown-slots/cli compose docs/template.md \
       --json docs/config.json \
       --slot version="${{ github.ref_name }}" \
       --slot commit="${{ github.sha }}" \
@@ -491,27 +372,27 @@ Deno requires explicit permissions for file system access. The CLI needs:
 
 ```bash
 # Minimal permissions for reading only (output to stdout)
-deno run --allow-read https://deno.land/x/markdown_slots/cli.ts template.md --slot title="Test"
+deno run --allow-read jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test"
 
-# Full permissions for reading and writing files
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts template.md --slot title="Test" --output result.md
+# Full permissions for reading and writing files (recommended)
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test" --output result.md
 
 # Restrict permissions to specific directories
-deno run --allow-read=./docs,./content --allow-write=./output https://deno.land/x/markdown_slots/cli.ts docs/template.md --output output/result.md
+deno run --allow-read=./docs,./content --allow-write=./output jsr:@stefanlegg/markdown-slots/cli docs/template.md --output output/result.md
 ```
 
 #### Deno Installation Best Practices
 
 ```bash
-# Install with specific permissions
-deno install --allow-read --allow-write --name markdown-slots https://deno.land/x/markdown_slots/cli.ts
+# Install with full permissions (recommended)
+deno install -A --name markdown-slots jsr:@stefanlegg/markdown-slots/cli
 
 # Install with restricted permissions (safer)
-deno install --allow-read=. --allow-write=. --name markdown-slots-local https://deno.land/x/markdown_slots/cli.ts
+deno install --allow-read=. --allow-write=. --name markdown-slots-local jsr:@stefanlegg/markdown-slots/cli
 
 # Create project-specific script
-echo '#!/usr/bin/env -S deno run --allow-read --allow-write' > markdown-slots.ts
-echo 'import "https://deno.land/x/markdown_slots/cli.ts";' >> markdown-slots.ts
+echo '#!/usr/bin/env -S deno run -A' > markdown-slots.ts
+echo 'import "jsr:@stefanlegg/markdown-slots/cli";' >> markdown-slots.ts
 chmod +x markdown-slots.ts
 ```
 
@@ -519,26 +400,13 @@ chmod +x markdown-slots.ts
 
 The CLI works consistently across all platforms:
 
-**Node.js/NPM:**
-
 ```bash
 # Unix/Linux/macOS (forward slashes work everywhere)
-npx markdown-slots template.md --slot content=@./content/file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./content/file.md
 
 # Windows (both styles work)
-npx markdown-slots template.md --slot content=@.\content\file.md
-npx markdown-slots template.md --slot content=@./content/file.md
-```
-
-**Deno:**
-
-```bash
-# Unix/Linux/macOS
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts template.md --slot content=@./content/file.md
-
-# Windows (both styles work)
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts template.md --slot content=@.\content\file.md
-deno run --allow-read --allow-write https://deno.land/x/markdown_slots/cli.ts template.md --slot content=@./content/file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@.\content\file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./content/file.md
 ```
 
 ## 🎯 Core Concepts
@@ -831,7 +699,7 @@ deno task fmt
 ls -la template.md
 
 # Use absolute path
-npx markdown-slots /full/path/to/template.md --slot title="Test"
+deno run -A jsr:@stefanlegg/markdown-slots/cli /full/path/to/template.md --slot title="Test"
 ```
 
 #### Invalid Slot Format
@@ -846,12 +714,12 @@ npx markdown-slots /full/path/to/template.md --slot title="Test"
 
 ```bash
 # Correct formats
-npx markdown-slots template.md --slot title="My Title"
-npx markdown-slots template.md --slot content=@file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot title="My Title"
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@file.md
 
 # Incorrect formats (will cause errors)
-npx markdown-slots template.md --slot "title=My Title"  # Wrong quotes
-npx markdown-slots template.md --slot title=My Title   # Missing quotes for spaces
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot "title=My Title"  # Wrong quotes
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot title=My Title   # Missing quotes for spaces
 ```
 
 #### JSON Configuration Errors
@@ -887,7 +755,7 @@ jq empty config.json && echo "Valid JSON" || echo "Invalid JSON"
 ls -la ./content/missing.md
 
 # Use verbose mode to debug paths
-npx markdown-slots template.md --slot content=@./content/file.md --verbose
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./content/file.md --verbose
 ```
 
 #### Permission Denied
@@ -926,7 +794,7 @@ mkdir -p output/
 ls -la output/
 
 # Use writable location
-npx markdown-slots template.md --slot title="Test" --output ./result.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test" --output ./result.md
 ```
 
 ### Common Composition Issues
@@ -943,7 +811,7 @@ npx markdown-slots template.md --slot title="Test" --output ./result.md
 
 ```bash
 # Debug with verbose mode
-npx markdown-slots template.md --json config.json --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --verbose
 ```
 
 #### Maximum Depth Exceeded
@@ -978,7 +846,7 @@ npx markdown-slots template.md --json config.json --verbose
 
 ```bash
 # Debug slot processing
-npx markdown-slots template.md --slot test="value" --verbose
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot test="value" --verbose
 ```
 
 #### Code Blocks Being Processed
@@ -1040,10 +908,10 @@ npx markdown-slots template.md --slot test="value" --verbose
 
 ```bash
 # Works on all platforms
-npx markdown-slots template.md --slot content=@./content/file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./content/file.md
 
 # Windows-specific (less portable)
-npx markdown-slots template.md --slot content=@.\content\file.md
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@.\content\file.md
 ```
 
 #### Line Ending Issues
@@ -1071,7 +939,7 @@ unix2dos input-file.md
 Always use `--verbose` or `-v` when debugging issues:
 
 ```bash
-npx markdown-slots template.md --json config.json --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --verbose
 ```
 
 This shows:
@@ -1087,13 +955,13 @@ Build complex compositions step by step:
 
 ```bash
 # Test basic template first
-npx markdown-slots template.md --slot simple="test"
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot simple="test"
 
 # Add one slot at a time
-npx markdown-slots template.md --slot simple="test" --slot another="value"
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot simple="test" --slot another="value"
 
 # Test JSON config with minimal slots
-npx markdown-slots template.md --json minimal-config.json
+deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --json minimal-config.json
 ```
 
 #### Validate Configurations
@@ -1105,7 +973,7 @@ Check JSON configurations before use:
 echo "Test: <!-- outlet: test -->" > test-template.md
 
 # Test your configuration
-npx markdown-slots test-template.md --json your-config.json --slot test="validation"
+deno run -A jsr:@stefanlegg/markdown-slots/cli test-template.md --json your-config.json --slot test="validation"
 ```
 
 #### Check File Paths

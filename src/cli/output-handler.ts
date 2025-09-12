@@ -108,8 +108,8 @@ export class OutputHandler {
     const message = error.message.toLowerCase();
 
     if (message.includes('template file is required')) {
-      console.error('\nUsage: npx markdown-slots compose <template> [options]');
-      console.error('   or: npx markdown-slots <template> [options]');
+      console.error('\nUsage: deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose <template> [options]');
+      console.error('   or: deno run -R -W jsr:@stefanlegg/markdown-slots/cli <template> [options]');
     } else if (message.includes('not found') || message.includes('no such file')) {
       console.error('\nTip: Check that the file path is correct and the file exists.');
     } else if (message.includes('invalid json')) {

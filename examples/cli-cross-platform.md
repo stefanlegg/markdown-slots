@@ -8,18 +8,18 @@ This document demonstrates how the Markdown Slots CLI works consistently across 
 
 ```bash
 # Forward slashes work on all Unix-like systems
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@./content/unix-style.md \
   --slot footer=@../shared/footer.md \
   --output ./output/result.md
 
 # Relative paths from current directory
-npx markdown-slots compose docs/template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md \
   --json docs/config.json \
   --output docs/generated.md
 
 # Absolute paths (Unix-style)
-npx markdown-slots compose /home/user/templates/main.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose /home/user/templates/main.md \
   --slot content=@/home/user/content/main.md \
   --output /home/user/output/result.md
 ```
@@ -28,19 +28,19 @@ npx markdown-slots compose /home/user/templates/main.md \
 
 ```cmd
 REM Backslashes work on Windows
-npx markdown-slots compose template.md ^
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md ^
   --slot content=@.\content\windows-style.md ^
   --slot footer=@..\shared\footer.md ^
   --output .\output\result.md
 
 REM Forward slashes also work on Windows
-npx markdown-slots compose template.md ^
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md ^
   --slot content=@./content/mixed-style.md ^
   --slot footer=@../shared/footer.md ^
   --output ./output/result.md
 
 REM Absolute paths (Windows-style)
-npx markdown-slots compose C:\Users\User\templates\main.md ^
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose C:\Users\User\templates\main.md ^
   --slot content=@C:\Users\User\content\main.md ^
   --output C:\Users\User\output\result.md
 ```
@@ -49,7 +49,7 @@ npx markdown-slots compose C:\Users\User\templates\main.md ^
 
 ```powershell
 # PowerShell with line continuation
-npx markdown-slots compose template.md `
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md `
   --slot content=@./content/powershell-style.md `
   --slot footer=@../shared/footer.md `
   --output ./output/result.md
@@ -58,7 +58,7 @@ npx markdown-slots compose template.md `
 $TemplateDir = "C:\Projects\Templates"
 $OutputDir = "C:\Projects\Output"
 
-npx markdown-slots compose "$TemplateDir\main.md" `
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "$TemplateDir\main.md" `
   --json "$TemplateDir\config.json" `
   --output "$OutputDir\result.md" `
   --verbose
@@ -72,7 +72,7 @@ The CLI preserves line endings from source files:
 
 ```bash
 # Files with Unix line endings are preserved
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@unix-file.md \
   --output unix-result.md
 ```
@@ -81,7 +81,7 @@ npx markdown-slots compose template.md \
 
 ```cmd
 REM Files with Windows line endings are preserved
-npx markdown-slots compose template.md ^
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md ^
   --slot content=@windows-file.md ^
   --output windows-result.md
 ```
@@ -90,7 +90,7 @@ npx markdown-slots compose template.md ^
 
 ```bash
 # Mixed line endings are preserved as-is
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot unix_content=@unix-file.md \
   --slot windows_content=@windows-file.md \
   --output mixed-result.md
@@ -102,7 +102,7 @@ The CLI handles UTF-8 encoding consistently across platforms:
 
 ```bash
 # Unicode content works on all platforms
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Unicode Test: 🌍 中文 العربية ñ àáâãäå" \
   --slot content=@unicode-content.md \
   --output unicode-result.md
@@ -118,7 +118,7 @@ export PROJECT_NAME="My Project"
 export VERSION="1.0.0"
 export BUILD_DATE=$(date)
 
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot project_name="$PROJECT_NAME" \
   --slot version="$VERSION" \
   --slot build_date="$BUILD_DATE" \
@@ -133,7 +133,7 @@ set PROJECT_NAME=My Project
 set VERSION=1.0.0
 set BUILD_DATE=%DATE%
 
-npx markdown-slots compose template.md ^
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md ^
   --slot project_name="%PROJECT_NAME%" ^
   --slot version="%VERSION%" ^
   --slot build_date="%BUILD_DATE%" ^
@@ -148,7 +148,7 @@ $env:PROJECT_NAME = "My Project"
 $env:VERSION = "1.0.0"
 $env:BUILD_DATE = Get-Date -Format "yyyy-MM-dd"
 
-npx markdown-slots compose template.md `
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md `
   --slot project_name="$env:PROJECT_NAME" `
   --slot version="$env:VERSION" `
   --slot build_date="$env:BUILD_DATE" `
@@ -182,14 +182,14 @@ for template in "$TEMPLATE_DIR"/*.md; do
     echo "Generating $output_file..."
     
     if [ -f "$config_file" ]; then
-        npx markdown-slots compose "$template" \
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "$template" \
             --json "$config_file" \
             --slot build_date="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             --slot version="${VERSION:-dev}" \
             --output "$output_file" \
             --verbose
     else
-        npx markdown-slots compose "$template" \
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "$template" \
             --slot build_date="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             --slot version="${VERSION:-dev}" \
             --output "$output_file" \
@@ -224,14 +224,14 @@ for %%f in ("%TEMPLATE_DIR%\*.md") do (
     echo Generating !output_file!...
     
     if exist "!config_file!" (
-        npx markdown-slots compose "%%f" ^
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "%%f" ^
             --json "!config_file!" ^
             --slot build_date="%DATE% %TIME%" ^
             --slot version="%VERSION%" ^
             --output "!output_file!" ^
             --verbose
     ) else (
-        npx markdown-slots compose "%%f" ^
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "%%f" ^
             --slot build_date="%DATE% %TIME%" ^
             --slot version="%VERSION%" ^
             --output "!output_file!" ^
@@ -271,14 +271,14 @@ foreach ($template in $templates) {
     $buildDate = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
     
     if (Test-Path $configFile) {
-        & npx markdown-slots compose $template.FullName `
+        & deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose $template.FullName `
             --json $configFile `
             --slot build_date="$buildDate" `
             --slot version="$Version" `
             --output $outputFile `
             --verbose
     } else {
-        & npx markdown-slots compose $template.FullName `
+        & deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose $template.FullName `
             --slot build_date="$buildDate" `
             --slot version="$Version" `
             --output $outputFile `
@@ -324,7 +324,7 @@ jobs:
       - name: Generate docs (Unix)
         if: runner.os != 'Windows'
         run: |
-          npx markdown-slots compose docs/template.md \
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md \
             --json docs/config.json \
             --slot os="${{ runner.os }}" \
             --slot build_date="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -334,7 +334,7 @@ jobs:
       - name: Generate docs (Windows)
         if: runner.os == 'Windows'
         run: |
-          npx markdown-slots compose docs/template.md ^
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md ^
             --json docs/config.json ^
             --slot os="${{ runner.os }}" ^
             --slot build_date="%DATE% %TIME%" ^
@@ -362,7 +362,7 @@ variables:
   before_script:
     - npm install -g markdown-slots
   script:
-    - npx markdown-slots compose docs/template.md
+    - deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md
       --json docs/config.json
       --slot platform="$CI_RUNNER_DESCRIPTION"
       --slot pipeline_id="$CI_PIPELINE_ID"
@@ -398,27 +398,27 @@ echo "Testing Markdown Slots CLI cross-platform compatibility..."
 
 # Test basic functionality
 echo "Testing basic composition..."
-npx markdown-slots compose test-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --slot title="Cross-Platform Test" \
   --slot content="This works on $(uname -s)" \
   --output test-output.md
 
 # Test with special characters
 echo "Testing special characters..."
-npx markdown-slots compose test-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --slot title="Special Chars: àáâãäå ñ 中文 🚀" \
   --slot content="Unicode content test" \
   --output unicode-test.md
 
 # Test with file paths
 echo "Testing file paths..."
-npx markdown-slots compose test-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --slot content=@./test-content.md \
   --output path-test.md
 
 # Test JSON configuration
 echo "Testing JSON configuration..."
-npx markdown-slots compose test-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --json test-config.json \
   --output json-test.md
 

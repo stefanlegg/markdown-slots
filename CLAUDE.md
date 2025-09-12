@@ -17,7 +17,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Development
 - `deno task dev` - Run in development mode with watch mode
-- `deno run --allow-read --allow-write cli.ts` - Run CLI tool directly
+- `deno run -A cli.ts` - Run CLI tool directly from source
+- `deno run -A jsr:@stefanlegg/markdown-slots/cli` - Run CLI from JSR registry
 - `deno run --allow-read examples/basic-usage.ts` - Test basic functionality
 
 ## Architecture Overview
@@ -69,8 +70,8 @@ This is a TypeScript library for composing markdown content with slot-based temp
 ### File Permissions
 The CLI and many operations require `--allow-read` and `--allow-write` permissions for file system access.
 
-### Cross-Platform Compatibility
-Code supports both Deno and Node.js environments with appropriate runtime detection and API usage.
+### JSR Registry Integration  
+Published to JSR registry as `@stefanlegg/markdown-slots` for easy installation and usage with Deno.
 
 ### Performance Considerations
 - Optional parallel processing for multiple file operations
