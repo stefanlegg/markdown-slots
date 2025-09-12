@@ -121,7 +121,7 @@ Complex configuration (`complex-doc-config.json`):
 Generate the complex document:
 
 ```bash
-npx markdown-slots compose templates/main-doc.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose templates/main-doc.md \
   --json complex-doc-config.json \
   --output docs/advanced-user-guide.md \
   --verbose
@@ -156,7 +156,7 @@ Template with international content:
 Usage with international content:
 
 ```bash
-npx markdown-slots compose international-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose international-template.md \
   --slot title="国际化文档 / International Documentation 🌍" \
   --slot section_chinese="中文部分" \
   --slot chinese_content="这是中文内容，包含特殊字符：《》【】" \
@@ -201,7 +201,7 @@ Normal content: <!-- outlet: content -->
 ````
 Test code block preservation:
 ```bash
-npx markdown-slots compose code-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose code-template.md \
   --slot title="Code Block Test" \
   --slot normal_outlet="This gets replaced" \
   --slot content="This also gets replaced" \
@@ -218,7 +218,7 @@ Generate content with very long slot values:
 # Create a very long content string (10KB)
 LONG_CONTENT=$(printf 'A%.0s' {1..10000})
 
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Long Content Test" \
   --slot long_content="$LONG_CONTENT" \
   --slot normal_content="Regular content"
@@ -229,7 +229,7 @@ npx markdown-slots compose template.md \
 Test edge cases with empty and whitespace content:
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Whitespace Test" \
   --slot empty_slot="" \
   --slot whitespace_only="   " \
@@ -258,7 +258,7 @@ Configuration with mixed valid/invalid references:
 The CLI handles this gracefully:
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --json mixed-validity-config.json \
   --verbose
 # Completes successfully with warnings about missing files
@@ -270,17 +270,17 @@ Test with various path formats:
 
 ```bash
 # Unix-style paths
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@./content/unix-style.md \
   --slot other=@../other/file.md
 
 # Windows-style paths (on Windows)
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@.\content\windows-style.md \
   --slot other=@..\other\file.md
 
 # Mixed separators (should work on all platforms)
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot content=@./content/mixed\path/file.md
 ```
 
@@ -292,7 +292,7 @@ Process multiple templates with shared configuration:
 # Process multiple templates with the same config
 for template in templates/*.md; do
   output_name=$(basename "$template" .md)
-  npx markdown-slots compose "$template" \
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose "$template" \
     --json shared-config.json \
     --slot template_name="$output_name" \
     --slot build_date="$(date)" \
@@ -325,7 +325,7 @@ Configuration optimized for performance:
 Process with performance monitoring:
 
 ```bash
-time npx markdown-slots compose large-template.md \
+time deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose large-template.md \
   --json performance-config.json \
   --output large-output.md \
   --verbose
@@ -337,16 +337,16 @@ For very large documents, process in chunks:
 
 ```bash
 # Process sections separately then combine
-npx markdown-slots compose section1-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose section1-template.md \
   --json section1-config.json \
   --output temp-section1.md
 
-npx markdown-slots compose section2-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose section2-template.md \
   --json section2-config.json \
   --output temp-section2.md
 
 # Combine sections
-npx markdown-slots compose final-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose final-template.md \
   --slot section1=@temp-section1.md \
   --slot section2=@temp-section2.md \
   --output final-document.md
@@ -370,7 +370,7 @@ docs: $(OUTPUTS)
 
 output/%.md: templates/%.md configs/%.json
 	@mkdir -p output
-	npx markdown-slots compose $< \
+	deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose $< \
 		--json configs/$*.json \
 		--slot build_date="$(shell date)" \
 		--slot version="$(VERSION)" \
@@ -412,7 +412,7 @@ jobs:
 
       - name: Generate documentation
         run: |
-          npx markdown-slots compose docs/template.md \
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md \
             --json docs/config.json \
             --slot version="${{ github.ref_name }}" \
             --slot commit="${{ github.sha }}" \
@@ -434,13 +434,13 @@ jobs:
 ```json
 {
   "scripts": {
-    "docs:dev": "npx markdown-slots compose docs/template.md --json docs/dev-config.json --output README.md",
-    "docs:prod": "npx markdown-slots compose docs/template.md --json docs/prod-config.json --output README.md",
+    "docs:dev": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md --json docs/dev-config.json --output README.md",
+    "docs:prod": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/template.md --json docs/prod-config.json --output README.md",
     "docs:watch": "chokidar 'docs/**/*.md' 'docs/**/*.json' -c 'npm run docs:dev'",
     "docs:all": "npm run docs:api && npm run docs:guide && npm run docs:readme",
-    "docs:api": "npx markdown-slots compose docs/api-template.md --json docs/api-config.json --output docs/API.md",
-    "docs:guide": "npx markdown-slots compose docs/guide-template.md --json docs/guide-config.json --output docs/GUIDE.md",
-    "docs:readme": "npx markdown-slots compose docs/readme-template.md --json docs/readme-config.json --output README.md"
+    "docs:api": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/api-template.md --json docs/api-config.json --output docs/API.md",
+    "docs:guide": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/guide-template.md --json docs/guide-config.json --output docs/GUIDE.md",
+    "docs:readme": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs/readme-template.md --json docs/readme-config.json --output README.md"
   }
 }
 ```
@@ -452,7 +452,7 @@ jobs:
 Use verbose mode to understand complex compositions:
 
 ```bash
-npx markdown-slots compose complex-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose complex-template.md \
   --json complex-config.json \
   --verbose 2>&1 | tee debug.log
 ```
@@ -463,17 +463,17 @@ Debug complex nested structures by testing each level:
 
 ```bash
 # Test the base template first
-npx markdown-slots compose base-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose base-template.md \
   --slot simple_slot="test content" \
   --verbose
 
 # Test first level of nesting
-npx markdown-slots compose base-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose base-template.md \
   --json level1-config.json \
   --verbose
 
 # Test full complexity
-npx markdown-slots compose base-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose base-template.md \
   --json full-config.json \
   --verbose
 ```
@@ -491,7 +491,7 @@ jq empty config.json && echo "Valid JSON" || echo "Invalid JSON"
 
 # Test with minimal template
 echo "Test: <!-- outlet: test -->" > test-template.md
-npx markdown-slots compose test-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --json config.json \
   --slot test="validation test" \
   --verbose
@@ -505,13 +505,13 @@ The CLI handles path separators automatically, but be aware of these patterns:
 
 ```bash
 # These all work on any platform
-npx markdown-slots compose template.md --slot content=@./content/file.md
-npx markdown-slots compose template.md --slot content=@content/file.md
-npx markdown-slots compose template.md --slot content=@../other/file.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@./content/file.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@content/file.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@../other/file.md
 
 # Absolute paths work but are not portable
-npx markdown-slots compose template.md --slot content=@/absolute/path/file.md  # Unix
-npx markdown-slots compose template.md --slot content=@C:\absolute\path\file.md  # Windows
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@/absolute/path/file.md  # Unix
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@C:\absolute\path\file.md  # Windows
 ```
 
 ### Line Ending Handling
@@ -520,10 +520,10 @@ The CLI preserves line endings from source files:
 
 ```bash
 # Unix line endings (LF)
-npx markdown-slots compose template.md --slot content=@unix-file.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@unix-file.md
 
 # Windows line endings (CRLF) 
-npx markdown-slots compose template.md --slot content=@windows-file.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@windows-file.md
 
 # Mixed line endings are preserved as-is
 ```
@@ -534,7 +534,7 @@ The CLI handles UTF-8 encoding by default:
 
 ```bash
 # Files with various encodings
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot utf8_content=@utf8-file.md \
   --slot ascii_content=@ascii-file.md \
   --slot unicode_content="Unicode: 🌍 中文 العربية"

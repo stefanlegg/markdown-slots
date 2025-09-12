@@ -30,13 +30,13 @@ markdown-slots --help
 # Install as project dependency
 npm install markdown-slots
 
-# Use via npx
-npx markdown-slots --help
+# Use via JSR
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli --help
 
 # Add to package.json scripts
 {
   "scripts": {
-    "docs": "npx markdown-slots template.md --json config.json --output README.md"
+    "docs": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --output README.md"
   }
 }
 ```
@@ -108,7 +108,7 @@ _Last updated: <!-- outlet: last_updated -->_
 
 ```bash
 # Long flags
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="My Awesome Project" \
   --slot author="Jane Developer" \
   --slot version="1.0.0" \
@@ -117,7 +117,7 @@ npx markdown-slots compose template.md \
   --slot last_updated="2024-01-15"
 
 # Short flags (equivalent)
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   -s title="My Awesome Project" \
   -s author="Jane Developer" \
   -s version="1.0.0" \
@@ -142,7 +142,7 @@ echo "npm install my-awesome-project" > content/installation.md
 Use file-based slots:
 
 ```bash
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   --slot title="My Awesome Project" \
   --slot author="Jane Developer" \
   --slot version="1.0.0" \
@@ -156,16 +156,16 @@ npx markdown-slots template.md \
 
 ```bash
 # Output to stdout (default)
-npx markdown-slots template.md --slot title="Test"
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test"
 
 # Output to file
-npx markdown-slots template.md --slot title="Test" --output result.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test" --output result.md
 
 # Verbose output for debugging
-npx markdown-slots template.md --slot title="Test" --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="Test" --verbose
 
 # Combined options
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   --slot title="Test" \
   --output result.md \
   --verbose
@@ -195,7 +195,7 @@ Create `config.json`:
 Use the configuration:
 
 ```bash
-npx markdown-slots template.md --json config.json --output README.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --output README.md
 ```
 
 #### Configuration with Options
@@ -269,7 +269,7 @@ Override JSON configuration with CLI arguments:
 
 ```bash
 # Base configuration from JSON, override specific slots
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   --json config.json \
   --slot version="2.0.0-beta" \
   --slot last_updated="$(date)" \
@@ -343,19 +343,19 @@ docs/
 
 ```bash
 # Generate main documentation
-npx markdown-slots templates/main-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/main-template.md \
   --json configs/main-config.json \
   --slot build_date="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   --output output/documentation.md \
   --verbose
 
 # Generate API documentation
-npx markdown-slots templates/api-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/api-template.md \
   --json configs/api-config.json \
   --output output/api.md
 
 # Generate user guide
-npx markdown-slots templates/guide-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/guide-template.md \
   --json configs/guide-config.json \
   --output output/guide.md
 ```
@@ -416,7 +416,7 @@ _Tags: <!-- outlet: tags -->_
 
 ```bash
 # Generate individual blog post
-npx markdown-slots templates/blog-post.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/blog-post.md \
   --json configs/blog-config.json \
   --slot title="Getting Started with Markdown Slots" \
   --slot date="2024-01-15" \
@@ -429,7 +429,7 @@ npx markdown-slots templates/blog-post.md \
 # Generate multiple posts with different content
 for post in posts/*.md; do
   post_name=$(basename "$post" .md)
-  npx markdown-slots templates/blog-post.md \
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/blog-post.md \
     --json configs/blog-config.json \
     --slot title="$(head -1 "$post" | sed 's/^# //')" \
     --slot date="$(date +%Y-%m-%d)" \
@@ -490,20 +490,20 @@ done
 
 ```bash
 # Generate English version
-npx markdown-slots site-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli site-template.md \
   --json configs/base-config.json \
   --json configs/en-config.json \
   --output dist/en/index.md
 
 # Generate Spanish version
-npx markdown-slots site-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli site-template.md \
   --json configs/base-config.json \
   --json configs/es-config.json \
   --output dist/es/index.md
 
 # Generate all languages
 for lang in en es fr de; do
-  npx markdown-slots site-template.md \
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli site-template.md \
     --json configs/base-config.json \
     --json "configs/${lang}-config.json" \
     --output "dist/${lang}/index.md" \
@@ -520,13 +520,13 @@ done
 ```json
 {
   "scripts": {
-    "docs:build": "npx markdown-slots docs/template.md --json docs/config.json --output README.md",
-    "docs:dev": "npx markdown-slots docs/template.md --json docs/dev-config.json --output README.md --verbose",
+    "docs:build": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/template.md --json docs/config.json --output README.md",
+    "docs:dev": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/template.md --json docs/dev-config.json --output README.md --verbose",
     "docs:watch": "chokidar 'docs/**/*.md' 'docs/**/*.json' -c 'npm run docs:dev'",
     "docs:all": "npm run docs:api && npm run docs:guide && npm run docs:readme",
-    "docs:api": "npx markdown-slots docs/api-template.md --json docs/api-config.json --output docs/API.md",
-    "docs:guide": "npx markdown-slots docs/guide-template.md --json docs/guide-config.json --output docs/GUIDE.md",
-    "docs:readme": "npx markdown-slots docs/readme-template.md --json docs/readme-config.json --output README.md",
+    "docs:api": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/api-template.md --json docs/api-config.json --output docs/API.md",
+    "docs:guide": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/guide-template.md --json docs/guide-config.json --output docs/GUIDE.md",
+    "docs:readme": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/readme-template.md --json docs/readme-config.json --output README.md",
     "prebuild": "npm run docs:build",
     "postinstall": "npm run docs:build"
   }
@@ -553,7 +553,7 @@ docs: $(OUTPUT_DIR)/README.md $(OUTPUT_DIR)/API.md $(OUTPUT_DIR)/GUIDE.md
 # Generate README
 $(OUTPUT_DIR)/README.md: $(TEMPLATE_DIR)/readme-template.md $(CONFIG_DIR)/readme-config.json
 	@mkdir -p $(OUTPUT_DIR)
-	npx markdown-slots $< \
+	deno run -R -W jsr:@stefanlegg/markdown-slots/cli $< \
 		--json $(CONFIG_DIR)/readme-config.json \
 		--slot version="$(VERSION)" \
 		--slot build_date="$(BUILD_DATE)" \
@@ -563,7 +563,7 @@ $(OUTPUT_DIR)/README.md: $(TEMPLATE_DIR)/readme-template.md $(CONFIG_DIR)/readme
 # Generate API documentation
 $(OUTPUT_DIR)/API.md: $(TEMPLATE_DIR)/api-template.md $(CONFIG_DIR)/api-config.json
 	@mkdir -p $(OUTPUT_DIR)
-	npx markdown-slots $< \
+	deno run -R -W jsr:@stefanlegg/markdown-slots/cli $< \
 		--json $(CONFIG_DIR)/api-config.json \
 		--slot version="$(VERSION)" \
 		--slot build_date="$(BUILD_DATE)" \
@@ -573,7 +573,7 @@ $(OUTPUT_DIR)/API.md: $(TEMPLATE_DIR)/api-template.md $(CONFIG_DIR)/api-config.j
 # Generate user guide
 $(OUTPUT_DIR)/GUIDE.md: $(TEMPLATE_DIR)/guide-template.md $(CONFIG_DIR)/guide-config.json
 	@mkdir -p $(OUTPUT_DIR)
-	npx markdown-slots $< \
+	deno run -R -W jsr:@stefanlegg/markdown-slots/cli $< \
 		--json $(CONFIG_DIR)/guide-config.json \
 		--slot version="$(VERSION)" \
 		--slot build_date="$(BUILD_DATE)" \
@@ -654,7 +654,7 @@ jobs:
           COMMIT_SHA="${{ github.sha }}"
 
           # Generate main documentation
-          npx markdown-slots docs/templates/readme-template.md \
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/templates/readme-template.md \
             --json docs/configs/readme-config.json \
             --slot version="$VERSION" \
             --slot build_date="$BUILD_DATE" \
@@ -663,7 +663,7 @@ jobs:
             --verbose
 
           # Generate API documentation
-          npx markdown-slots docs/templates/api-template.md \
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/templates/api-template.md \
             --json docs/configs/api-config.json \
             --slot version="$VERSION" \
             --slot build_date="$BUILD_DATE" \
@@ -671,7 +671,7 @@ jobs:
             --verbose
 
           # Generate user guide
-          npx markdown-slots docs/templates/guide-template.md \
+          deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/templates/guide-template.md \
             --json docs/configs/guide-config.json \
             --slot version="$VERSION" \
             --slot build_date="$BUILD_DATE" \
@@ -732,7 +732,7 @@ generate-docs:
         BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
         # Generate documentation
-        npx markdown-slots docs/templates/readme-template.md \
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/templates/readme-template.md \
           --json docs/configs/readme-config.json \
           --slot version="$VERSION" \
           --slot build_date="$BUILD_DATE" \
@@ -741,7 +741,7 @@ generate-docs:
           --output README.md \
           --verbose
 
-        npx markdown-slots docs/templates/api-template.md \
+        deno run -R -W jsr:@stefanlegg/markdown-slots/cli docs/templates/api-template.md \
           --json docs/configs/api-config.json \
           --slot version="$VERSION" \
           --slot build_date="$BUILD_DATE" \
@@ -799,20 +799,20 @@ python -m json.tool config.json > /dev/null && echo "Valid JSON" || echo "Invali
 
 # Test with minimal template
 echo "Test: <!-- outlet: test -->" > test-template.md
-npx markdown-slots test-template.md --json config.json --slot test="validation"
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli test-template.md --json config.json --slot test="validation"
 ```
 
 ### 4. Use Environment-Specific Configurations
 
 ```bash
 # Development
-npx markdown-slots template.md --json dev-config.json --output dev-README.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json dev-config.json --output dev-README.md
 
 # Staging
-npx markdown-slots template.md --json staging-config.json --output staging-README.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json staging-config.json --output staging-README.md
 
 # Production
-npx markdown-slots template.md --json prod-config.json --output README.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json prod-config.json --output README.md
 ```
 
 ### 5. Version Control Best Practices
@@ -833,7 +833,7 @@ docs/content/         # Source content
 
 ```bash
 # Always use verbose mode when debugging
-npx markdown-slots template.md --json config.json --verbose 2>&1 | tee debug.log
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --verbose 2>&1 | tee debug.log
 ```
 
 ### 7. Handle Errors Gracefully
@@ -858,7 +858,7 @@ npx markdown-slots template.md --json config.json --verbose 2>&1 | tee debug.log
 # Error: Template file not found
 # Solution: Check file path and permissions
 ls -la template.md
-npx markdown-slots ./path/to/template.md --slot test="value"
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli ./path/to/template.md --slot test="value"
 ```
 
 #### 2. JSON Syntax Errors
@@ -876,7 +876,7 @@ jq empty config.json
 ```bash
 # Warning: File not found
 # Solution: Check file paths and use verbose mode
-npx markdown-slots template.md --slot content=@missing.md --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@missing.md --verbose
 ```
 
 #### 4. Circular Dependencies
@@ -884,7 +884,7 @@ npx markdown-slots template.md --slot content=@missing.md --verbose
 ```bash
 # Error: Circular dependency detected
 # Solution: Review file structure and remove circular references
-npx markdown-slots template.md --json config.json --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --verbose
 ```
 
 ### Debug Workflow

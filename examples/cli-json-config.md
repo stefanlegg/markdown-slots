@@ -24,10 +24,10 @@ Use with CLI:
 
 ```bash
 # Long flag
-npx markdown-slots compose template.md --json config.json
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --json config.json
 
 # Short flag
-npx markdown-slots template.md -j config.json
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md -j config.json
 ```
 
 ### Configuration with Options
@@ -128,19 +128,19 @@ Override specific slots via CLI:
 
 ```bash
 # Long flags
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --json base-config.json \
   --slot title="Custom Title" \
   --slot author="Jane Smith"
 
 # Short flags
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   -j base-config.json \
   -s title="Custom Title" \
   -s author="Jane Smith"
 
 # Mixed flags
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   --json base-config.json \
   -s title="Mixed Flags Title" \
   --slot version="2.0.0"
@@ -178,12 +178,12 @@ Usage:
 
 ```bash
 # Development build
-npx markdown-slots compose app-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose app-template.md \
   --json dev-config.json \
   --output docs/dev-guide.md
 
 # Production build
-npx markdown-slots compose app-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose app-template.md \
   --json prod-config.json \
   --output docs/user-guide.md
 ```
@@ -249,7 +249,7 @@ Main configuration (`configs/main-config.json`):
 Generate documentation:
 
 ```bash
-npx markdown-slots compose templates/main-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose templates/main-template.md \
   --json configs/main-config.json \
   --output output/documentation.md \
   --verbose
@@ -303,13 +303,13 @@ Generate multi-language sites:
 
 ```bash
 # English version
-npx markdown-slots compose site-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose site-template.md \
   --json base-config.json \
   --json en-config.json \
   --output dist/en/index.md
 
 # Spanish version
-npx markdown-slots compose site-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose site-template.md \
   --json base-config.json \
   --json es-config.json \
   --output dist/es/index.md
@@ -365,7 +365,7 @@ Blog configuration (`blog-config.json`):
 Generate blog post:
 
 ```bash
-npx markdown-slots compose blog-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose blog-template.md \
   --json blog-config.json \
   --slot title="Getting Started with Markdown Slots" \
   --slot date="2024-01-15" \
@@ -383,13 +383,13 @@ Use different configurations for different builds:
 
 ```bash
 # Development version with debug info
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --json base-config.json \
   --slot environment="development" \
   --slot debug_panel=@debug-panel.md
 
 # Production version without debug info
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --json base-config.json \
   --slot environment="production" \
   --slot debug_panel=""
@@ -417,7 +417,7 @@ Base template configuration:
 Extend with page-specific content:
 
 ```bash
-npx markdown-slots compose page-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose page-template.md \
   --json base-layout-config.json \
   --slot page_title="About Us" \
   --slot page_content=@content/about.md \
@@ -429,7 +429,7 @@ npx markdown-slots compose page-template.md \
 ### Verbose Mode with JSON
 
 ```bash
-npx markdown-slots compose complex-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose complex-template.md \
   --json complex-config.json \
   --verbose
 ```
@@ -450,7 +450,7 @@ Configuration with missing file reference:
 The CLI will complete successfully but report warnings:
 
 ```bash
-npx markdown-slots compose template.md --json config.json
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --json config.json
 # Output includes warnings about missing files
 ```
 
@@ -459,7 +459,7 @@ npx markdown-slots compose template.md --json config.json
 Invalid JSON will produce helpful error messages:
 
 ```bash
-npx markdown-slots compose template.md --json invalid.json
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --json invalid.json
 # Error: Invalid JSON in configuration file
 # Tip: Validate your JSON configuration file syntax.
 ```

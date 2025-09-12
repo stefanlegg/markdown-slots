@@ -5,11 +5,11 @@ This document demonstrates basic CLI usage patterns for the Markdown Slots CLI t
 ## Installation
 
 ```bash
-# Install globally via npm
-npm install -g markdown-slots
+# Run directly from JSR (no installation needed)
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli --help
 
-# Or use directly with npx
-npx markdown-slots --help
+# Or install globally with deno install
+deno install -R -W --name markdown-slots jsr:@stefanlegg/markdown-slots/cli
 ```
 
 ## Basic Template Composition
@@ -37,7 +37,7 @@ Email: <!-- outlet: email -->
 Compose with inline content using long flags:
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="My Awesome Project" \
   --slot project_name="Markdown Slots" \
   --slot description="A powerful tool for composing Markdown files" \
@@ -47,7 +47,7 @@ npx markdown-slots compose template.md \
 Same composition using short flags:
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   -s title="My Awesome Project" \
   -s project_name="Markdown Slots" \
   -s description="A powerful tool for composing Markdown files" \
@@ -81,13 +81,13 @@ Compose using file references:
 
 ```bash
 # Using long flags
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Documentation" \
   --slot description=@intro.md \
   --slot features=@features.md
 
 # Using short flags
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   -s title="Documentation" \
   -s description=@intro.md \
   -s features=@features.md
@@ -98,7 +98,7 @@ npx markdown-slots template.md \
 Combine inline content and file references:
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Mixed Content Example" \
   --slot description=@intro.md \
   --slot email="support@example.com" \
@@ -111,12 +111,12 @@ npx markdown-slots compose template.md \
 
 ```bash
 # Long flag
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="My Project" \
   --output result.md
 
 # Short flag
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   -s title="My Project" \
   -o result.md
 ```
@@ -127,12 +127,12 @@ Get detailed information about the composition process:
 
 ```bash
 # Long flag
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Debug Example" \
   --verbose
 
 # Short flag
-npx markdown-slots template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md \
   -s title="Debug Example" \
   -v
 ```
@@ -140,7 +140,7 @@ npx markdown-slots template.md \
 ### Combined Output Options
 
 ```bash
-npx markdown-slots compose template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md \
   --slot title="Combined Example" \
   --slot description=@intro.md \
   --output final-result.md \
@@ -151,12 +151,12 @@ npx markdown-slots compose template.md \
 
 ```bash
 # Show help
-npx markdown-slots --help
-npx markdown-slots -h
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli --help
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli -h
 
 # Help works with any combination
-npx markdown-slots compose --help
-npx markdown-slots --help --verbose
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose --help
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli --help --verbose
 ```
 
 ## Common Patterns
@@ -165,7 +165,7 @@ npx markdown-slots --help --verbose
 
 ```bash
 # Generate README from template
-npx markdown-slots compose README.template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose README.template.md \
   --slot project_name="My Project" \
   --slot version="1.0.0" \
   --slot description=@docs/description.md \
@@ -178,7 +178,7 @@ npx markdown-slots compose README.template.md \
 
 ```bash
 # Create blog post from template
-npx markdown-slots compose blog-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose blog-template.md \
   --slot title="My Blog Post" \
   --slot author="John Doe" \
   --slot date="2024-01-15" \
@@ -191,13 +191,13 @@ npx markdown-slots compose blog-template.md \
 
 ```bash
 # English version
-npx markdown-slots compose docs-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs-template.md \
   --slot title="User Guide" \
   --slot content=@content/en/user-guide.md \
   --output docs/en/user-guide.md
 
 # Spanish version
-npx markdown-slots compose docs-template.md \
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose docs-template.md \
   --slot title="Guía del Usuario" \
   --slot content=@content/es/user-guide.md \
   --output docs/es/user-guide.md
@@ -209,15 +209,15 @@ The CLI handles errors gracefully and provides helpful messages:
 
 ```bash
 # Missing template file
-npx markdown-slots compose non-existent.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose non-existent.md
 # Output: Error with suggestion to check file path
 
 # Invalid slot format
-npx markdown-slots compose template.md --slot invalid_format
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot invalid_format
 # Output: Error explaining expected format
 
 # Missing file reference
-npx markdown-slots compose template.md --slot content=@missing.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose template.md --slot content=@missing.md
 # Output: Composition completes with warning about missing file
 ```
 

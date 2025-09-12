@@ -150,8 +150,8 @@ export class ArgumentParser {
 Markdown Slots CLI - Compose Markdown files using slot/outlet patterns
 
 USAGE:
-  npx markdown-slots compose <template> [options]
-  npx markdown-slots <template> [options]
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose <template> [options]
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli <template> [options]
 
 ARGUMENTS:
   <template>    Path to the template Markdown file
@@ -165,25 +165,27 @@ OPTIONS:
   --help, -h                  Show this help message
 
 EXAMPLES:
-  # Basic composition with inline slots
-  npx markdown-slots compose template.md --slot title="My Document" --slot author="John Doe"
-  npx markdown-slots compose template.md -s title="My Document" -s author="John Doe"
+  # Basic composition with inline slots (long flags)
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="My Document" --slot author="John Doe"
+
+  # Basic composition with inline slots (short flags)
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md -s title="My Document" -s author="John Doe"
 
   # Using file-based slots
-  npx markdown-slots compose template.md --slot content=@content.md --slot footer=@footer.md
-  npx markdown-slots compose template.md -s content=@content.md -s footer=@footer.md
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@content.md --slot footer=@footer.md
 
   # JSON configuration
-  npx markdown-slots compose template.md --json config.json
-  npx markdown-slots compose template.md -j config.json
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json
 
   # Output to file
-  npx markdown-slots compose template.md --slot title="Test" --output result.md
-  npx markdown-slots compose template.md -s title="Test" -o result.md
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md -s title="Test" -o result.md
 
   # Verbose output for debugging
-  npx markdown-slots compose template.md --json config.json --verbose
-  npx markdown-slots compose template.md -j config.json -v
+  deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --verbose
+
+JSR USAGE NOTE:
+  When running from JSR, Deno caches the downloaded module. To get the latest version:
+  deno run --reload -R -W jsr:@stefanlegg/markdown-slots/cli --help
 
 SLOT SYNTAX:
   name=value      Use 'value' as literal content for slot 'name'

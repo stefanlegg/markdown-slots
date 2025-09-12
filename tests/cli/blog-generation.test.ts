@@ -99,7 +99,7 @@ Markdown Slots is a flexible templating system that allows you to compose markdo
 The easiest way to get started is with the CLI:
 
 \`\`\`bash
-npx markdown-slots template.md --slot title="My Document" --slot content="Hello World"
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="My Document" --slot content="Hello World"
 \`\`\`
 
 This simple command demonstrates the power of slot-based composition.`,
@@ -160,7 +160,7 @@ Configure how the system handles missing content:
 The simplest usage involves inline content:
 
 \`\`\`bash
-npx markdown-slots template.md --slot title="My Title" --slot content="My content"
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot title="My Title" --slot content="My content"
 \`\`\`
 
 ## File-Based Content
@@ -168,7 +168,7 @@ npx markdown-slots template.md --slot title="My Title" --slot content="My conten
 Reference external files with the @ prefix:
 
 \`\`\`bash
-npx markdown-slots template.md --slot content=@./content/main.md
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./content/main.md
 \`\`\`
 
 ## JSON Configuration
@@ -176,7 +176,7 @@ npx markdown-slots template.md --slot content=@./content/main.md
 For complex scenarios, use JSON configuration files:
 
 \`\`\`bash
-npx markdown-slots template.md --json config.json
+deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json
 \`\`\`
 
 ## Integration Examples
@@ -186,7 +186,7 @@ npx markdown-slots template.md --json config.json
 \`\`\`json
 {
   "scripts": {
-    "docs": "npx markdown-slots template.md --json config.json --output README.md"
+    "docs": "deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --output README.md"
   }
 }
 \`\`\`
@@ -195,7 +195,7 @@ npx markdown-slots template.md --json config.json
 
 \`\`\`yaml
 - name: Generate Documentation
-  run: npx markdown-slots template.md --json config.json --output README.md
+  run: deno run -R -W jsr:@stefanlegg/markdown-slots/cli template.md --json config.json --output README.md
 \`\`\``,
   );
   tempFiles.push('./blog-content/cli-usage.md');
