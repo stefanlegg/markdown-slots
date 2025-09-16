@@ -4,7 +4,8 @@
   "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
-    "./cli": "./cli.ts"
+    "./cli": "./cli.ts",
+    "./mcp": "./src/mcp.ts"
   },
   "tasks": {
     "dev": "deno run --watch src/mod.ts",
@@ -23,7 +24,8 @@
     "indentWidth": 2,
     "semiColons": true,
     "singleQuote": true,
-    "proseWrap": "preserve"
+    "proseWrap": "preserve",
+    "exclude": ["**/*.md"]
   },
   "lint": {
     "rules": {
@@ -41,6 +43,7 @@
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.14",
     "@std/cli": "jsr:@std/cli@^1.0.22",
-    "@std/path": "jsr:@std/path@^1.1.2"
+    "@std/path": "jsr:@std/path@^1.1.2",
+    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.0"
   }
 }

@@ -12,6 +12,7 @@ deno run --allow-read --allow-write --allow-run scripts/version-bump.ts $ARGUMEN
 ```
 
 This will:
+
 1. Check for uncommitted changes (exits if any exist)
 2. Read the current version from deno.json
 3. Increment the version based on the provided type (patch, minor, or major)
@@ -23,6 +24,7 @@ This will:
 9. Push the branch and tag to origin
 
 Usage examples:
+
 - `/version-bump` - bumps patch version
-- `/version-bump minor` - bumps minor version 
+- `/version-bump minor` - bumps minor version
 - `/version-bump major` - bumps major version
