@@ -1,6 +1,6 @@
 {
   "name": "@stefanlegg/markdown-slots",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
@@ -25,7 +25,9 @@
     "semiColons": true,
     "singleQuote": true,
     "proseWrap": "preserve",
-    "exclude": ["**/*.md"]
+    "exclude": [
+      "**/*.md"
+    ]
   },
   "lint": {
     "rules": {
