@@ -208,7 +208,11 @@ class MarkdownSlotsMcpServer {
 
   private async handleCompose(args: unknown) {
     try {
-      const { template, slots, options = {} } = args;
+      const { template, slots, options = {} } = args as {
+        template: string;
+        slots: Record<string, unknown>;
+        options?: Record<string, unknown>;
+      };
 
       if (!template || typeof template !== 'string') {
         return {
@@ -252,9 +256,9 @@ class MarkdownSlotsMcpServer {
       };
 
       const composeOptions: ComposeOptions = {
-        resolveFrom: options.resolveFrom === 'file' ? 'file' : 'cwd',
-        onFileError: options.onFileError || 'warn-empty',
-        onMissingSlot: options.onMissingSlot || 'keep',
+        resolveFrom: (options.resolveFrom as string) === 'file' ? 'file' : 'cwd',
+        onFileError: (options.onFileError as 'throw' | 'warn-empty') || 'warn-empty',
+        onMissingSlot: (options.onMissingSlot as 'error' | 'ignore' | 'keep') || 'keep',
         parallel: options.parallel !== false,
       };
 
@@ -289,7 +293,11 @@ class MarkdownSlotsMcpServer {
 
   private async handleComposeFromFile(args: unknown) {
     try {
-      const { templateFile, slots, options = {} } = args;
+      const { templateFile, slots, options = {} } = args as {
+        templateFile: string;
+        slots: Record<string, unknown>;
+        options?: Record<string, unknown>;
+      };
 
       if (!templateFile || typeof templateFile !== 'string') {
         return {
@@ -347,9 +355,9 @@ class MarkdownSlotsMcpServer {
       };
 
       const composeOptions: ComposeOptions = {
-        resolveFrom: options.resolveFrom === 'cwd' ? 'cwd' : 'file',
-        onFileError: options.onFileError || 'warn-empty',
-        onMissingSlot: options.onMissingSlot || 'keep',
+        resolveFrom: (options.resolveFrom as string) === 'cwd' ? 'cwd' : 'file',
+        onFileError: (options.onFileError as 'throw' | 'warn-empty') || 'warn-empty',
+        onMissingSlot: (options.onMissingSlot as 'error' | 'ignore' | 'keep') || 'keep',
         parallel: options.parallel !== false,
       };
 
@@ -385,7 +393,10 @@ class MarkdownSlotsMcpServer {
 
   private async handleListOutlets(args: unknown) {
     try {
-      const { template, isFile = false } = args;
+      const { template, isFile = false } = args as {
+        template: string;
+        isFile?: boolean;
+      };
 
       if (!template || typeof template !== 'string') {
         return {

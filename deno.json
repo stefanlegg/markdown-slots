@@ -14,7 +14,7 @@
     "fmt": "deno fmt",
     "fmt:check": "deno fmt --check",
     "lint": "deno lint",
-    "check": "deno check src/mod.ts",
+    "check": "deno check src/mod.ts cli.ts src/mcp.ts",
     "build": "deno run -A build.ts",
     "publish": "deno publish"
   },
