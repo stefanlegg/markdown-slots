@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Core Tasks
+
 - `deno task test` - Run all tests with required permissions (--allow-read --allow-write --allow-run)
 - `deno task test:watch` - Run tests in watch mode
 - `deno task test tests/specific_test.ts` - Run specific test file
@@ -16,6 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `deno task publish` - Publish to Deno registry
 
 ### Development
+
 - `deno task dev` - Run in development mode with watch mode
 - `deno run -A cli.ts` - Run CLI tool directly from source
 - `deno run -A jsr:@stefanlegg/markdown-slots/cli` - Run CLI from JSR registry
@@ -26,6 +28,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a TypeScript library for composing markdown content with slot-based templating, built for both Deno and Node.js environments.
 
 ### Core Architecture
+
 - **Slot-based composition system**: Uses `<!-- outlet: name -->` markers for content replacement
 - **Multi-source content**: Supports content strings, file paths, and async functions as slot sources
 - **Nested composition**: Unlimited nesting with circular dependency detection
@@ -34,6 +37,7 @@ This is a TypeScript library for composing markdown content with slot-based temp
 ### Key Components
 
 **Core Library** (`src/`):
+
 - `compose.ts` - Main API function and public interface
 - `composition-engine.ts` - Core composition logic and orchestration
 - `parser.ts` - Markdown content parsing and outlet detection
@@ -42,16 +46,19 @@ This is a TypeScript library for composing markdown content with slot-based temp
 - `types.ts` - TypeScript type definitions for all components
 
 **CLI Implementation** (`src/cli/`):
+
 - `cli-interface.ts` - Main CLI orchestration and command handling
 - `argument-parser.ts` - Command line argument parsing and validation
 - `configuration-loader.ts` - JSON configuration file loading and merging
 - `output-handler.ts` - Output formatting and file writing
 
 **Entry Points**:
+
 - `mod.ts` - Main library export for programmatic use
 - `cli.ts` - CLI entry point with cross-platform compatibility
 
 ### Testing Strategy
+
 - Comprehensive test coverage across all modules
 - Integration tests for complex composition scenarios
 - File system operation testing with temporary directories
@@ -59,6 +66,7 @@ This is a TypeScript library for composing markdown content with slot-based temp
 - Error handling and edge case validation
 
 ### Code Quality Standards
+
 - TypeScript strict mode enabled
 - Deno's recommended lint rules
 - Consistent code formatting (2 spaces, single quotes, semicolons)
@@ -68,12 +76,15 @@ This is a TypeScript library for composing markdown content with slot-based temp
 ## Development Notes
 
 ### File Permissions
+
 The CLI and many operations require `--allow-read` and `--allow-write` permissions for file system access.
 
-### JSR Registry Integration  
+### JSR Registry Integration
+
 Published to JSR registry as `@stefanlegg/markdown-slots` for easy installation and usage with Deno.
 
 ### Performance Considerations
+
 - Optional parallel processing for multiple file operations
 - Configurable caching system for file content
 - Depth limiting to prevent runaway compositions

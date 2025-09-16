@@ -233,7 +233,10 @@ Deno.test('OutputHandler', async (t) => {
     handler.formatValidationError(error);
 
     assertEquals(consoleErrorOutput[0], 'Error: Template file is required');
-    assertEquals(consoleErrorOutput[1], '\nUsage: deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose <template> [options]');
+    assertEquals(
+      consoleErrorOutput[1],
+      '\nUsage: deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose <template> [options]',
+    );
 
     // Reset and test file not found error
     mockConsole();
