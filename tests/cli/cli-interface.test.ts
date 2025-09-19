@@ -325,7 +325,7 @@ Deno.test('CliInterface', async (t) => {
       // Should show error about missing slot
       assertEquals(consoleErrorOutput, [
         'Composition completed with errors:',
-        '  Missing slot: missing',
+        '  Missing slot/outlet: missing',
         '',
       ]);
     } finally {

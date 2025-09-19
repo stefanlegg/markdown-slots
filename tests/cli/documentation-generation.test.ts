@@ -302,8 +302,9 @@ Parse outlet markers from markdown content.
 
 <!-- outlet: troubleshooting -->`;
 
-  await Deno.writeTextFile('./docs/user-guide-template.md', userGuideTemplate);
-  tempFiles.push('./docs/user-guide-template.md');
+  await Deno.mkdir('./tmp', { recursive: true });
+  await Deno.writeTextFile('./tmp/user-guide-template.md', userGuideTemplate);
+  tempFiles.push('./tmp/user-guide-template.md');
 
   const userGuideConfig = {
     slots: {
@@ -325,10 +326,10 @@ Parse outlet markers from markdown content.
   };
 
   await Deno.writeTextFile(
-    './docs/user-guide-config.json',
+    './tmp/user-guide-config.json',
     JSON.stringify(userGuideConfig, null, 2),
   );
-  tempFiles.push('./docs/user-guide-config.json');
+  tempFiles.push('./tmp/user-guide-config.json');
 
   return {
     cleanup: async () => {
@@ -340,7 +341,7 @@ Parse outlet markers from markdown content.
         }
       }
       try {
-        await Deno.remove('./docs', { recursive: true });
+        await Deno.remove('./tmp', { recursive: true });
         await Deno.remove('./content', { recursive: true });
         await Deno.remove('./api', { recursive: true });
       } catch {
@@ -468,9 +469,9 @@ Deno.test('Documentation Generation Tests', async (t) => {
     // Generate user guide
     const guideResult = await runCli([
       'compose',
-      'docs/user-guide-template.md',
+      'tmp/user-guide-template.md',
       '--json',
-      'docs/user-guide-config.json',
+      'tmp/user-guide-config.json',
       '--output',
       'generated-USER-GUIDE.md',
     ]);
