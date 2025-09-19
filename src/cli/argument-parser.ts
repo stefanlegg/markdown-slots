@@ -142,12 +142,33 @@ export class ArgumentParser {
   }
 
   /**
+   * Get the version from deno.json
+   * @returns Version string or 'unknown' if not found
+   */
+  private getVersion(): string {
+    try {
+      // Read deno.json from the project root
+      const denoJsonPath = new URL('../../deno.json', import.meta.url);
+      const denoJsonText = Deno.readTextFileSync(denoJsonPath);
+      const denoJson = JSON.parse(denoJsonText);
+      return denoJson.version || 'unknown';
+    } catch {
+      // Fallback if we can't read the version
+      return 'unknown';
+    }
+  }
+
+  /**
    * Generate help text for the CLI
    * @returns Formatted help text
    */
   getHelpText(): string {
+    // Get version from deno.json
+    const version = this.getVersion();
+
     return `
-Markdown Slots CLI - Compose Markdown files using slot/outlet patterns
+Markdown Slots CLI v${version}
+Compose Markdown files using slot/outlet patterns
 
 USAGE:
   deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose <template> [options]
