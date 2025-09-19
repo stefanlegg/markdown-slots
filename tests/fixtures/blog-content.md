@@ -4,7 +4,7 @@ Welcome to this comprehensive guide on markdown composition.
 
 ## Main Content
 
-<!-- outlet: sections -->
+<!-- slot: sections -->
 
 ## Summary
 

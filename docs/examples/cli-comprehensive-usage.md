@@ -86,22 +86,22 @@ deno task docs:watch
 Create a basic template (`template.md`):
 
 ```markdown
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-**Author:** <!-- outlet: author -->\
-**Version:** <!-- outlet: version -->
+**Author:** <!-- slot: author -->\
+**Version:** <!-- slot: version -->
 
 ## Description
 
-<!-- outlet: description -->
+<!-- slot: description -->
 
 ## Installation
 
-<!-- outlet: installation -->
+<!-- slot: installation -->
 
 ---
 
-_Last updated: <!-- outlet: last_updated -->_
+_Last updated: <!-- slot: last_updated -->_
 ```
 
 #### Using Inline Content
@@ -368,34 +368,34 @@ deno run -R -W jsr:@stefanlegg/markdown-slots/cli templates/guide-template.md \
 
 ```markdown
 ---
-title: <!-- outlet: title -->
-author: <!-- outlet: author -->
-date: <!-- outlet: date -->
-tags: <!-- outlet: tags -->
-excerpt: <!-- outlet: excerpt -->
+title: <!-- slot: title -->
+author: <!-- slot: author -->
+date: <!-- slot: date -->
+tags: <!-- slot: tags -->
+excerpt: <!-- slot: excerpt -->
 ---
 
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-_By <!-- outlet: author --> on <!-- outlet: date -->_
+_By <!-- slot: author --> on <!-- slot: date -->_
 
-<!-- outlet: excerpt -->
+<!-- slot: excerpt -->
 
 ---
 
-<!-- outlet: content -->
+<!-- slot: content -->
 
 ---
 
 ## About the Author
 
-<!-- outlet: author_bio -->
+<!-- slot: author_bio -->
 
 ## Related Posts
 
-<!-- outlet: related_posts -->
+<!-- slot: related_posts -->
 
-_Tags: <!-- outlet: tags -->_
+_Tags: <!-- slot: tags -->_
 ```
 
 #### Blog Configuration
@@ -798,7 +798,7 @@ project/
 python -m json.tool config.json > /dev/null && echo "Valid JSON" || echo "Invalid JSON"
 
 # Test with minimal template
-echo "Test: <!-- outlet: test -->" > test-template.md
+echo "Test: <!-- slot: test -->" > test-template.md
 deno run -R -W jsr:@stefanlegg/markdown-slots/cli test-template.md --json config.json --slot test="validation"
 ```
 

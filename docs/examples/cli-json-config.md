@@ -321,33 +321,33 @@ Blog template (`blog-template.md`):
 
 ```markdown
 ---
-title: <!-- outlet: title -->
-author: <!-- outlet: author -->
-date: <!-- outlet: date -->
-tags: <!-- outlet: tags -->
+title: <!-- slot: title -->
+author: <!-- slot: author -->
+date: <!-- slot: date -->
+tags: <!-- slot: tags -->
 ---
 
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-_By <!-- outlet: author --> on <!-- outlet: date -->_
+_By <!-- slot: author --> on <!-- slot: date -->_
 
-<!-- outlet: excerpt -->
+<!-- slot: excerpt -->
 
 ---
 
-<!-- outlet: content -->
+<!-- slot: content -->
 
 ---
 
 ## About the Author
 
-<!-- outlet: author_bio -->
+<!-- slot: author_bio -->
 
 ## Related Posts
 
-<!-- outlet: related_posts -->
+<!-- slot: related_posts -->
 
-_Tags: <!-- outlet: tags -->_
+_Tags: <!-- slot: tags -->_
 ```
 
 Blog configuration (`blog-config.json`):

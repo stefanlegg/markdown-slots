@@ -19,40 +19,40 @@ templates/
 Main document template (`templates/main-doc.md`):
 
 ```markdown
-# <!-- outlet: doc_title -->
+# <!-- slot: doc_title -->
 
-**Version:** <!-- outlet: version -->\
-**Last Updated:** <!-- outlet: last_updated -->
+**Version:** <!-- slot: version -->\
+**Last Updated:** <!-- slot: last_updated -->
 
 ## Table of Contents
 
-<!-- outlet: toc -->
+<!-- slot: toc -->
 
 ---
 
-<!-- outlet: chapters -->
+<!-- slot: chapters -->
 
 ---
 
 ## Appendix
 
-<!-- outlet: appendix -->
+<!-- slot: appendix -->
 
-_Generated on <!-- outlet: generation_date -->_
+_Generated on <!-- slot: generation_date -->_
 ```
 
 Chapter template (`templates/chapter.md`):
 
 ```markdown
-## <!-- outlet: chapter_number -->. <!-- outlet: chapter_title -->
+## <!-- slot: chapter_number -->. <!-- slot: chapter_title -->
 
-<!-- outlet: chapter_intro -->
+<!-- slot: chapter_intro -->
 
-<!-- outlet: sections -->
+<!-- slot: sections -->
 
 ### Chapter Summary
 
-<!-- outlet: chapter_summary -->
+<!-- slot: chapter_summary -->
 ```
 
 Complex configuration (`complex-doc-config.json`):
@@ -134,23 +134,23 @@ deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose templates/main-doc.md 
 Template with international content:
 
 ```markdown
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-## <!-- outlet: section_chinese -->
+## <!-- slot: section_chinese -->
 
-<!-- outlet: chinese_content -->
+<!-- slot: chinese_content -->
 
-## <!-- outlet: section_arabic -->
+## <!-- slot: section_arabic -->
 
-<!-- outlet: arabic_content -->
+<!-- slot: arabic_content -->
 
-## <!-- outlet: section_emoji -->
+## <!-- slot: section_emoji -->
 
-<!-- outlet: emoji_content -->
+<!-- slot: emoji_content -->
 
 ## Special Characters
 
-<!-- outlet: special_chars -->
+<!-- slot: special_chars -->
 ```
 
 Usage with international content:
@@ -172,7 +172,7 @@ deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose international-template
 Template with code blocks:
 
 ````markdown
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
 ## Code Example
 
@@ -187,7 +187,7 @@ This outlet marker should remain unchanged in code blocks.
 
 Inline code: `<!-- @outlet:also_not_replaced -->`
 
-But this should be replaced: <!-- outlet: normal_outlet -->
+But this should be replaced: <!-- slot: normal_outlet -->
 
 ## Another Example
 
@@ -196,7 +196,7 @@ But this should be replaced: <!-- outlet: normal_outlet -->
 console.log('Hello World');
 ```
 
-Normal content: <!-- outlet: content -->
+Normal content: <!-- slot: content -->
 
 ````
 Test code block preservation:
@@ -490,7 +490,7 @@ python -m json.tool config.json > /dev/null && echo "Valid JSON" || echo "Invali
 jq empty config.json && echo "Valid JSON" || echo "Invalid JSON"
 
 # Test with minimal template
-echo "Test: <!-- outlet: test -->" > test-template.md
+echo "Test: <!-- slot: test -->" > test-template.md
 deno run -R -W jsr:@stefanlegg/markdown-slots/cli compose test-template.md \
   --json config.json \
   --slot test="validation test" \

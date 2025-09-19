@@ -2,4 +2,4 @@
 
 This document includes A:
 
-<!-- outlet: content -->
+<!-- slot: content -->

@@ -15,13 +15,13 @@ console.log('=== Example 1: Basic Slot Replacement ===');
 const basicExample = {
   content: `# Welcome to My Blog
 
-<!-- outlet: intro -->
+<!-- slot: intro -->
 
 ## Latest Posts
 
-<!-- outlet: posts -->
+<!-- slot: posts -->
 
-<!-- outlet: footer -->`,
+<!-- slot: footer -->`,
   slots: {
     intro: {
       content: 'Welcome to my personal blog where I share thoughts on technology and life.',
@@ -53,15 +53,15 @@ console.log('=== Example 2: Dynamic Content with Functions ===');
 const dynamicExample = {
   content: `# Daily Report
 
-**Generated:** <!-- outlet: timestamp -->
+**Generated:** <!-- slot: timestamp -->
 
 ## System Status
 
-<!-- outlet: status -->
+<!-- slot: status -->
 
 ## Random Quote
 
-<!-- outlet: quote -->`,
+<!-- slot: quote -->`,
   slots: {
     timestamp: () => Promise.resolve(new Date().toISOString()),
     status: async () => {

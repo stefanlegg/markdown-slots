@@ -1,7 +1,7 @@
 # Document with Missing Slots
 
-<!-- outlet: existing -->
+<!-- slot: existing -->
 
-<!-- outlet: missing -->
+<!-- slot: missing -->
 
-<!-- outlet: another-missing -->
+<!-- slot: another-missing -->

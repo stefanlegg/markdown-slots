@@ -29,7 +29,7 @@ This is a TypeScript library for composing markdown content with slot-based temp
 
 ### Core Architecture
 
-- **Slot-based composition system**: Uses `<!-- outlet: name -->` markers for content replacement
+- **Slot-based composition system**: Uses `<!-- slot: name -->` or `<!-- outlet: name -->` markers for content replacement
 - **Multi-source content**: Supports content strings, file paths, and async functions as slot sources
 - **Nested composition**: Unlimited nesting with circular dependency detection
 - **CLI tool**: Full-featured command line interface for composition without coding
@@ -40,7 +40,7 @@ This is a TypeScript library for composing markdown content with slot-based temp
 
 - `compose.ts` - Main API function and public interface
 - `composition-engine.ts` - Core composition logic and orchestration
-- `parser.ts` - Markdown content parsing and outlet detection
+- `parser.ts` - Markdown content parsing and slot/outlet detection
 - `filesystem.ts` - File system operations with cross-platform support
 - `dependency-tracker.ts` - Circular dependency detection and prevention
 - `types.ts` - TypeScript type definitions for all components

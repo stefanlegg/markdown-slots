@@ -21,17 +21,17 @@ Create a template file:
 ```markdown
 <!-- template.md -->
 
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-Welcome to <!-- outlet: project_name -->!
+Welcome to <!-- slot: project_name -->!
 
 ## About
 
-<!-- outlet: description -->
+<!-- slot: description -->
 
 ## Contact
 
-Email: <!-- outlet: email -->
+Email: <!-- slot: email -->
 ```
 
 Compose with inline content using long flags:
