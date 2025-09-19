@@ -14,7 +14,7 @@
  * import { composeMarkdown } from './mod.ts';
  *
  * const result = await composeMarkdown({
- *   content: 'Hello <!-- outlet: name -->!',
+ *   content: 'Hello <!-- slot: name -->!',
  *   slots: {
  *     name: { content: 'World' }
  *   }

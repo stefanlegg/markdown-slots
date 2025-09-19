@@ -2,7 +2,7 @@
 import { composeMarkdown } from 'markdown-slots';
 
 const result = await composeMarkdown({
-  content: '# Hello <!-- outlet: name -->',
+  content: '# Hello <!-- slot: name -->',
   slots: {
     name: { content: 'World' },
   },

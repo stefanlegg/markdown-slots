@@ -207,9 +207,9 @@ End of mixed content example.`;
     assertEquals(result.errors?.[0].type, 'missing-slot');
     assertEquals(result.errors?.[1].type, 'missing-slot');
 
-    // Should preserve missing outlet markers by default
-    assertEquals(result.markdown.includes('<!-- outlet: missing -->'), true);
-    assertEquals(result.markdown.includes('<!-- outlet: another-missing -->'), true);
+    // Should preserve missing slot markers by default
+    assertEquals(result.markdown.includes('<!-- slot: missing -->'), true);
+    assertEquals(result.markdown.includes('<!-- slot: another-missing -->'), true);
 
     // Should replace the existing slot
     assertEquals(result.markdown.includes('This slot exists!'), true);

@@ -1,13 +1,13 @@
 # Project Documentation
 
-<!-- outlet: header -->
+<!-- slot: header -->
 
 ## Overview
 
 This is a comprehensive guide to our project.
 
-<!-- outlet: content -->
+<!-- slot: content -->
 
 ## Conclusion
 
-<!-- outlet: footer -->
+<!-- slot: footer -->

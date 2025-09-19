@@ -41,9 +41,9 @@ import { composeMarkdown } from './src/mod.ts';
 const result = await composeMarkdown({
   content: `# Welcome
 
-<!-- outlet: greeting -->
+<!-- slot: greeting -->
 
-<!-- outlet: content -->`,
+<!-- slot: content -->`,
   slots: {
     greeting: { content: 'Hello, World!' },
     content: { content: 'This is dynamically inserted content.' },
@@ -429,7 +429,7 @@ deno run -A jsr:@stefanlegg/markdown-slots/cli template.md --slot content=@./con
 Outlets are placeholders in your markdown content marked with HTML comments:
 
 ```markdown
-<!-- outlet: slot-name -->
+<!-- slot: slot-name -->
 ```
 
 ### Slot Sources
@@ -459,10 +459,10 @@ Slots can contain their own slots, enabling powerful nested compositions:
 
 ```typescript
 const result = await composeMarkdown({
-  content: '<!-- outlet: header -->\n\n<!-- outlet: body -->',
+  content: '<!-- slot: header -->\n\n<!-- slot: body -->',
   slots: {
     header: {
-      content: '# <!-- outlet: title -->',
+      content: '# <!-- slot: title -->',
       slots: {
         title: { content: 'My Document' },
       },
@@ -630,10 +630,10 @@ Automatic detection and prevention of circular dependencies:
 ```typescript
 // This will be detected and handled gracefully
 const circular = {
-  file: 'a.md', // Contains: <!-- outlet: b -->
+  file: 'a.md', // Contains: <!-- slot: b -->
   slots: {
     b: {
-      file: 'b.md', // Contains: <!-- outlet: a -->
+      file: 'b.md', // Contains: <!-- slot: a -->
       slots: {
         a: { file: 'a.md' }, // Circular!
       },

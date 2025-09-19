@@ -27,11 +27,11 @@ const circularFile2 = './examples/temp/circular2.md';
 
 await Deno.writeTextFile(
   circularFile1,
-  '# File 1\n\nContent from file 1.\n\n<!-- outlet: next -->',
+  '# File 1\n\nContent from file 1.\n\n<!-- slot: next -->',
 );
 await Deno.writeTextFile(
   circularFile2,
-  '# File 2\n\nContent from file 2.\n\n<!-- outlet: back -->',
+  '# File 2\n\nContent from file 2.\n\n<!-- slot: back -->'
 );
 
 const circularExample = {
@@ -65,7 +65,7 @@ const createDeepNesting = (depth: number) => {
   }
 
   return {
-    content: `## Level ${depth}\n\n<!-- outlet: next -->`,
+    content: `## Level ${depth}\n\n<!-- slot: next -->`,
     slots: {
       next: createDeepNesting(depth - 1),
     },
@@ -103,7 +103,7 @@ for (let i = 1; i <= fileCount; i++) {
 }
 
 const parallelExample = {
-  content: Array.from({ length: fileCount }, (_, i) => `<!-- outlet: section${i + 1} -->`).join(
+  content: Array.from({ length: fileCount }, (_, i) => `<!-- slot: section${i + 1} -->`).join(
     '\n\n',
   ),
   slots: Object.fromEntries(
@@ -143,13 +143,13 @@ console.log('\n=== Example 4: Error Recovery Strategies ===');
 const errorRecoveryExample = {
   content: `# Resilient Document
 
-<!-- outlet: good-content -->
+<!-- slot: good-content -->
 
-<!-- outlet: missing-file -->
+<!-- slot: missing-file -->
 
-<!-- outlet: missing-slot -->
+<!-- slot: missing-slot -->
 
-<!-- outlet: function-error -->`,
+<!-- slot: function-error -->`,
   slots: {
     'good-content': { content: '✅ This content loads successfully.' },
     'missing-file': { file: './examples/temp/does-not-exist.md' },

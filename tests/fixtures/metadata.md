@@ -1,3 +1,3 @@
-_Published on <!-- outlet: date --> by <!-- outlet: author -->_
+_Published on <!-- slot: date --> by <!-- slot: author -->_
 
-**Tags:** <!-- outlet: tags -->
+**Tags:** <!-- slot: tags -->

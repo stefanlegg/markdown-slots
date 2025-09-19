@@ -15,17 +15,17 @@ console.log('Creating example files...');
 // Create a main template
 const mainTemplate = `# Project Documentation
 
-<!-- outlet: overview -->
+<!-- slot: overview -->
 
 ## Installation
 
-<!-- outlet: installation -->
+<!-- slot: installation -->
 
 ## Usage
 
-<!-- outlet: usage -->
+<!-- slot: usage -->
 
-<!-- outlet: footer -->`;
+<!-- slot: footer -->`;
 
 const overviewContent = `## Overview
 
@@ -36,11 +36,11 @@ This is a powerful markdown composition tool that allows you to:
 - Handle errors gracefully
 - Support nested compositions
 
-<!-- outlet: features -->`;
+<!-- slot: features -->`;
 
 const featuresContent = `### Key Features
 
-- **Slot-based composition**: Use \`<!-- outlet: name -->\` markers
+- **Slot-based composition**: Use \`<!-- slot: name -->\` markers
 - **Multiple source types**: Content, files, and functions
 - **Error handling**: Configurable error modes
 - **Circular dependency detection**: Prevents infinite loops
@@ -63,7 +63,7 @@ const usageContent = `\`\`\`typescript
 import { composeMarkdown } from './src/mod.ts';
 
 const result = await composeMarkdown({
-  content: 'Hello <!-- outlet: name -->!',
+  content: 'Hello <!-- slot: name -->!',
   slots: {
     name: { content: 'World' }
   }
@@ -156,11 +156,11 @@ const cache = new Map<string, string>();
 const mixedExample = {
   content: `# Mixed Content Example
 
-<!-- outlet: file-content -->
+<!-- slot: file-content -->
 
-<!-- outlet: dynamic-content -->
+<!-- slot: dynamic-content -->
 
-<!-- outlet: static-content -->`,
+<!-- slot: static-content -->`,
   slots: {
     'file-content': { file: './examples/temp/features.md' },
     'dynamic-content': () => Promise.resolve(`**Generated at:** ${new Date().toLocaleString()}`),

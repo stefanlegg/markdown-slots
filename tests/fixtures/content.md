@@ -1,6 +1,6 @@
 ### Features
 
-<!-- outlet: features -->
+<!-- slot: features -->
 
 ### Installation
 
@@ -10,4 +10,4 @@ npm install markdown-slots
 
 ### Usage
 
-<!-- outlet: usage -->
+<!-- slot: usage -->

@@ -1,7 +1,7 @@
-# <!-- outlet: title -->
+# <!-- slot: title -->
 
-<!-- outlet: metadata -->
+<!-- slot: metadata -->
 
-<!-- outlet: content -->
+<!-- slot: content -->
 
-<!-- outlet: author-bio -->
+<!-- slot: author-bio -->
