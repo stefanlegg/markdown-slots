@@ -6,11 +6,15 @@
 [![Deno](https://img.shields.io/badge/Deno-1.40+-green.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> [!NOTE]
+> **🚧 Work in Progress**: This library is under active development and APIs may change.
+> While functional, expect potential instability until v1.0 release.
+
 A powerful and flexible TypeScript library for composing markdown content with slot-based templating. Build modular, reusable markdown documents with dynamic content generation, file inclusion, and robust error handling.
 
 ## ✨ Features
 
-- **🔧 Slot-based composition**: Use `<!-- outlet: name -->` markers to define content slots
+- **🔧 Slot-based composition**: Use `<!-- slot: name -->` or `<!-- outlet: name -->` markers to define content slots
 - **📁 Multiple source types**: Content strings, file paths, and async functions
 - **🔄 Nested compositions**: Unlimited nesting with circular dependency detection
 - **⚡ Performance optimized**: Optional caching and parallel processing
@@ -53,6 +57,15 @@ console.log(result.markdown);
 // Hello, World!
 //
 // This is dynamically inserted content.
+```
+
+## 💡 Syntax Flexibility
+
+Both `<!-- slot: name -->` and `<!-- outlet: name -->` work identically - use whichever feels more natural:
+
+```markdown
+<!-- slot: greeting -->     ✅ Works
+<!-- outlet: greeting -->   ✅ Also works
 ```
 
 ## 📖 Table of Contents

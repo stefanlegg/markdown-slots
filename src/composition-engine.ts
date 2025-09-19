@@ -169,7 +169,7 @@ export class CompositionEngine {
         const slotSource = slots[outletName];
 
         if (!slotSource) {
-          const error = `Missing slot: ${outletName}`;
+          const error = `Missing slot/outlet: ${outletName}`;
           errors.push({
             type: 'missing-slot',
             message: error,
@@ -211,7 +211,7 @@ export class CompositionEngine {
           errorType = 'circular-dependency';
         } else if (message.includes('Maximum')) {
           errorType = 'max-depth';
-        } else if (message.includes('Missing slot')) {
+        } else if (message.includes('Missing slot') || message.includes('Missing slot/outlet')) {
           errorType = 'missing-slot';
         } else if (message.includes('Function execution failed')) {
           errorType = 'function-error';

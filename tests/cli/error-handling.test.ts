@@ -498,7 +498,7 @@ Deno.test('Error Handling and Edge Cases', async (t) => {
 
         assertEquals(result.exitCode, 0);
         assertEquals(result.stdout, ['Hello <!-- outlet: name -->!']); // Slot remains unfilled
-        assertEquals(result.stderr.some((line) => line.includes('Missing slot: name')), true);
+        assertEquals(result.stderr.some((line) => line.includes('Missing slot/outlet: name')), true);
       } finally {
         await cleanupTempFile(templateFile);
         await cleanupTempFile(emptyJsonFile);
@@ -519,7 +519,7 @@ Deno.test('Error Handling and Edge Cases', async (t) => {
 
         assertEquals(result.exitCode, 0);
         assertEquals(result.stdout, ['Hello <!-- outlet: name -->!']);
-        assertEquals(result.stderr.some((line) => line.includes('Missing slot: name')), true);
+        assertEquals(result.stderr.some((line) => line.includes('Missing slot/outlet: name')), true);
       } finally {
         await cleanupTempFile(templateFile);
         await cleanupTempFile(emptySlotsJsonFile);

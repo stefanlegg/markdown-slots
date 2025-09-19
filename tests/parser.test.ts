@@ -13,6 +13,24 @@ Deno.test('ContentParser', async (t) => {
     assertEquals(outlets[1].name, 'footer');
   });
 
+  await t.step('should find basic slot markers', () => {
+    const content = 'Hello <!-- slot: header --> World <!-- slot: footer -->';
+    const outlets = parser.findOutlets(content);
+
+    assertEquals(outlets.length, 2);
+    assertEquals(outlets[0].name, 'header');
+    assertEquals(outlets[1].name, 'footer');
+  });
+
+  await t.step('should find mixed slot and outlet markers', () => {
+    const content = 'Hello <!-- slot: header --> World <!-- outlet: footer -->';
+    const outlets = parser.findOutlets(content);
+
+    assertEquals(outlets.length, 2);
+    assertEquals(outlets[0].name, 'header');
+    assertEquals(outlets[1].name, 'footer');
+  });
+
   await t.step('should ignore outlets in fenced code blocks', () => {
     const content = `
 # Title
@@ -64,6 +82,22 @@ Deno.test('ContentParser', async (t) => {
     const result = parser.replaceOutlets(content, replacements);
 
     assertEquals(result, 'Hello Beautiful World');
+  });
+
+  await t.step('should replace slots with content', () => {
+    const content = 'Hello <!-- slot: greeting --> World';
+    const replacements = { greeting: 'Beautiful' };
+    const result = parser.replaceOutlets(content, replacements);
+
+    assertEquals(result, 'Hello Beautiful World');
+  });
+
+  await t.step('should replace mixed slots and outlets with content', () => {
+    const content = 'Hello <!-- slot: greeting --> and <!-- outlet: ending -->';
+    const replacements = { greeting: 'Beautiful', ending: 'Goodbye' };
+    const result = parser.replaceOutlets(content, replacements);
+
+    assertEquals(result, 'Hello Beautiful and Goodbye');
   });
 
   await t.step('should handle multiple replacements', () => {

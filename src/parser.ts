@@ -29,8 +29,8 @@ export interface OutletMatch {
  * Parser for handling markdown content with outlet markers
  */
 export class ContentParser {
-  /** Regex pattern for matching outlet markers */
-  private static readonly OUTLET_PATTERN = /<!--\s*outlet:\s*([a-zA-Z0-9_-]+)\s*-->/g;
+  /** Regex pattern for matching outlet/slot markers */
+  private static readonly OUTLET_PATTERN = /<!--\s*(outlet|slot):\s*([a-zA-Z0-9_-]+)\s*-->/g;
 
   /**
    * Split content into segments, identifying code blocks to preserve them
@@ -141,7 +141,7 @@ export class ContentParser {
       if (!isInCodeBlock) {
         outlets.push({
           match: match[0],
-          name: match[1],
+          name: match[2],
           start,
           end,
         });
