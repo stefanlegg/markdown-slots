@@ -16,6 +16,7 @@ import {
 import { composeMarkdown } from './compose.ts';
 import { ContentParser } from './parser.ts';
 import { DenoFileSystem } from './filesystem.ts';
+import { getVersion } from './version.ts';
 import type { ComposeOptions, MarkdownNode, MarkdownSlotSource } from './types.ts';
 
 class MarkdownSlotsMcpServer {
@@ -27,7 +28,7 @@ class MarkdownSlotsMcpServer {
     this.server = new Server(
       {
         name: 'markdown-slots',
-        version: '0.1.3',
+        version: getVersion(),
       },
       {
         capabilities: {

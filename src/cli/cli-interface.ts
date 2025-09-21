@@ -35,7 +35,7 @@ export class CliInterface {
 
       // Handle help request
       if (options.help) {
-        this.showHelp();
+        await this.showHelp();
         return;
       }
 
@@ -175,8 +175,9 @@ export class CliInterface {
   /**
    * Display help information
    */
-  private showHelp(): void {
-    console.log(this.argumentParser.getHelpText());
+  private async showHelp(): Promise<void> {
+    const helpText = await this.argumentParser.getHelpText();
+    console.log(helpText);
   }
 
   /**

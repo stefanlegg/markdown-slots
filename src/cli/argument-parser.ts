@@ -3,6 +3,7 @@
  */
 
 import type { CliOptions } from '../types.ts';
+import { checkForUpdate, getVersion } from '../version.ts';
 
 /**
  * Parses command-line arguments into structured CLI options
@@ -142,32 +143,26 @@ export class ArgumentParser {
   }
 
   /**
-   * Get the version from deno.json
-   * @returns Version string or 'unknown' if not found
-   */
-  private getVersion(): string {
-    try {
-      // Read deno.json from the project root
-      const denoJsonPath = new URL('../../deno.json', import.meta.url);
-      const denoJsonText = Deno.readTextFileSync(denoJsonPath);
-      const denoJson = JSON.parse(denoJsonText);
-      return denoJson.version || 'unknown';
-    } catch {
-      // Fallback if we can't read the version
-      return 'unknown';
-    }
-  }
-
-  /**
    * Generate help text for the CLI
-   * @returns Formatted help text
+   * @returns Promise resolving to formatted help text
    */
-  getHelpText(): string {
+  async getHelpText(): Promise<string> {
     // Get version from deno.json
-    const version = this.getVersion();
+    const version = getVersion();
+
+    // Check for updates (non-blocking with timeout)
+    const updateInfo = await checkForUpdate(version);
+
+    let versionLine = `Markdown Slots CLI v${version}`;
+    if (updateInfo) {
+      versionLine +=
+        `\n⚠️  Update available (v${updateInfo.latestVersion}). Run: ${updateInfo.updateCommand}`;
+    } else {
+      versionLine += ' ✓';
+    }
 
     return `
-Markdown Slots CLI v${version}
+${versionLine}
 Compose Markdown files using slot/outlet patterns
 
 USAGE:

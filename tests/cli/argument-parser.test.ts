@@ -4,9 +4,13 @@
 
 import { assertEquals, assertThrows } from 'https://deno.land/std@0.208.0/assert/mod.ts';
 import { ArgumentParser } from '../../src/cli/argument-parser.ts';
+import { disableNetworkRequests } from '../../src/version.ts';
 
 Deno.test('ArgumentParser', async (t) => {
   const parser = new ArgumentParser();
+
+  // Disable network requests to prevent timer leaks in tests
+  disableNetworkRequests();
 
   await t.step('should parse basic compose command', () => {
     const result = parser.parse(['compose', 'template.md']);
@@ -355,8 +359,8 @@ Deno.test('ArgumentParser', async (t) => {
     );
   });
 
-  await t.step('should generate help text', () => {
-    const helpText = parser.getHelpText();
+  await t.step('should generate help text', async () => {
+    const helpText = await parser.getHelpText();
 
     // Check that help text contains key sections
     assertEquals(helpText.includes('Markdown Slots CLI'), true);
