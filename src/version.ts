@@ -1,5 +1,6 @@
 /**
- * Version checking utility for JSR package updates
+ * Version utilities for the markdown-slots package
+ * Provides version reading from deno.json and update checking from JSR
  */
 
 /**
@@ -21,6 +22,48 @@ interface VersionCheckCache {
 let versionCache: VersionCheckCache | null = null;
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds
 
+// Flag to disable network requests (useful for testing)
+let networkRequestsDisabled = false;
+
+/**
+ * Disable network requests (useful for testing)
+ */
+export function disableNetworkRequests(): void {
+  networkRequestsDisabled = true;
+}
+
+/**
+ * Enable network requests
+ */
+export function enableNetworkRequests(): void {
+  networkRequestsDisabled = false;
+}
+
+/**
+ * Get the version from deno.json
+ * @returns Version string or 'unknown' if not found
+ */
+export function getVersion(): string {
+  try {
+    // Read deno.json from the project root
+    // Since src/version.ts is one level deep, go up one level to reach project root
+    const denoJsonPath = new URL('../deno.json', import.meta.url);
+    const denoJsonText = Deno.readTextFileSync(denoJsonPath);
+    const denoJson = JSON.parse(denoJsonText);
+    return denoJson.version || 'unknown';
+  } catch {
+    // Try alternative path resolution in case import.meta.url behaves differently
+    try {
+      const denoJsonText = Deno.readTextFileSync('./deno.json');
+      const denoJson = JSON.parse(denoJsonText);
+      return denoJson.version || 'unknown';
+    } catch {
+      // Fallback if we can't read the version
+      return 'unknown';
+    }
+  }
+}
+
 /**
  * Fetch the latest version from JSR registry
  * @returns Promise resolving to latest version string or null if failed
@@ -29,6 +72,11 @@ export async function getLatestVersion(): Promise<string | null> {
   // Check cache first
   if (versionCache && Date.now() - versionCache.timestamp < CACHE_DURATION) {
     return versionCache.latestVersion;
+  }
+
+  // Skip network requests if disabled (for testing)
+  if (networkRequestsDisabled) {
+    return null;
   }
 
   try {

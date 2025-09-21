@@ -4,6 +4,7 @@
 
 import { assertEquals } from 'https://deno.land/std@0.208.0/assert/mod.ts';
 import { CliInterface } from '../../src/cli/cli-interface.ts';
+import { disableNetworkRequests } from '../../src/version.ts';
 
 // Mock console methods for testing
 let consoleLogOutput: string[] = [];
@@ -58,6 +59,9 @@ async function cleanupTempFile(path: string) {
 
 Deno.test('CliInterface', async (t) => {
   const cli = new CliInterface();
+
+  // Disable network requests to prevent timer leaks in tests
+  disableNetworkRequests();
 
   await t.step('should display help when --help flag is used', async () => {
     mockConsole();

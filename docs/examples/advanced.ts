@@ -31,7 +31,7 @@ await Deno.writeTextFile(
 );
 await Deno.writeTextFile(
   circularFile2,
-  '# File 2\n\nContent from file 2.\n\n<!-- slot: back -->'
+  '# File 2\n\nContent from file 2.\n\n<!-- slot: back -->',
 );
 
 const circularExample = {
