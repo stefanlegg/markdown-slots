@@ -1,12 +1,34 @@
 /**
- * Command-line argument parser for the Markdown Slots CLI
+ * Command-line argument parsing for markdown-slots CLI.
+ *
+ * This module handles parsing of command-line arguments into structured options
+ * for the markdown-slots CLI tool. It supports various argument formats including
+ * flags, options with values, and slot definitions.
+ *
+ * Supported argument patterns:
+ * - Template specification: `compose template.md`
+ * - Slot definitions: `--slot name=value` or `--slot name=@file.md`
+ * - Configuration: `--config config.json`
+ * - Output: `--output result.md`
+ * - Help and version: `--help`, `--version`
+ *
+ * @example
+ * ```typescript
+ * import { ArgumentParser } from './argument-parser.ts';
+ *
+ * const parser = new ArgumentParser();
+ * const options = parser.parse(['compose', 'template.md', '--slot', 'title=Hello']);
+ * ```
+ *
+ * @module argument-parser
  */
 
 import type { CliOptions } from '../types.ts';
 import { checkForUpdate, getVersion } from '../version.ts';
 
 /**
- * Parses command-line arguments into structured CLI options
+ * Parses command-line arguments into structured CLI options.
+ * Handles flag parsing, slot definitions, and option validation.
  */
 export class ArgumentParser {
   /**

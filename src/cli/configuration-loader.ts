@@ -1,13 +1,38 @@
 /**
- * Configuration loader for the Markdown Slots CLI
- * Handles loading JSON configuration and merging with CLI arguments
+ * Configuration loading and merging for markdown-slots CLI.
+ *
+ * This module handles loading configuration from JSON files and merging it with
+ * command-line arguments. It provides a unified configuration system that allows
+ * users to specify composition options through multiple sources.
+ *
+ * Features:
+ * - JSON configuration file loading with validation
+ * - CLI argument conversion to slot sources
+ * - Configuration merging with CLI precedence
+ * - File path resolution relative to configuration files
+ * - Error handling for missing or invalid configurations
+ *
+ * @example
+ * ```typescript
+ * import { ConfigurationLoader } from './configuration-loader.ts';
+ *
+ * const loader = new ConfigurationLoader();
+ * const node = await loader.load({
+ *   template: 'template.md',
+ *   slots: { title: 'Hello' },
+ *   json: 'config.json'
+ * });
+ * ```
+ *
+ * @module configuration-loader
  */
 
 import { dirname, resolve } from '@std/path';
 import type { CliOptions, JsonConfig, MarkdownNode, MarkdownSlotSource } from '../types.ts';
 
 /**
- * Loads and merges configuration from JSON files and CLI arguments
+ * Loads and merges configuration from JSON files and CLI arguments.
+ * Handles file path resolution and configuration validation.
  */
 export class ConfigurationLoader {
   /**

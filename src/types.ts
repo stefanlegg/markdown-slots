@@ -1,4 +1,40 @@
 /**
+ * TypeScript type definitions for markdown-slots.
+ *
+ * This module contains all the TypeScript interface and type definitions used throughout
+ * the markdown-slots library. It defines the core data structures for markdown composition,
+ * slot sources, configuration options, error handling, and CLI interfaces.
+ *
+ * Key Types:
+ * - MarkdownSlotSource: Various content sources for slot replacement
+ * - MarkdownNode: Document structure with optional slots
+ * - ComposeOptions: Configuration for composition behavior
+ * - ComposeResult: Output structure with content and errors
+ * - CliOptions: Command-line interface configuration
+ *
+ * @example
+ * ```typescript
+ * import type { MarkdownNode, ComposeOptions } from './types.ts';
+ *
+ * const node: MarkdownNode = {
+ *   file: './template.md',
+ *   slots: {
+ *     title: { content: 'My Title' },
+ *     body: { file: './content.md' }
+ *   }
+ * };
+ *
+ * const options: ComposeOptions = {
+ *   maxDepth: 5,
+ *   onMissingSlot: 'keep',
+ *   resolveFrom: 'file'
+ * };
+ * ```
+ *
+ * @module types
+ */
+
+/**
  * Represents different sources that can fill a slot
  */
 export type MarkdownSlotSource =
