@@ -1,6 +1,27 @@
 /**
- * Main CLI interface for the Markdown Slots CLI
- * Coordinates argument parsing, configuration loading, composition, and output
+ * Command line interface orchestration for markdown-slots.
+ *
+ * This module provides the main CLI interface that coordinates all CLI operations
+ * including argument parsing, configuration loading, markdown composition, and output handling.
+ * It serves as the primary entry point for the command-line tool.
+ *
+ * The CLI interface supports:
+ * - Command-line argument parsing and validation
+ * - JSON configuration file loading and merging
+ * - Template and slot-based composition
+ * - Multiple output formats (stdout, file)
+ * - Comprehensive error handling and reporting
+ * - Help and usage information
+ *
+ * @example
+ * ```typescript
+ * import { CliInterface } from './cli-interface.ts';
+ *
+ * const cli = new CliInterface();
+ * await cli.run(Deno.args);
+ * ```
+ *
+ * @module cli-interface
  */
 
 import type { CliOptions, ComposeOptions, MarkdownNode } from '../types.ts';
@@ -10,7 +31,8 @@ import { OutputHandler } from './output-handler.ts';
 import { composeMarkdown } from '../compose.ts';
 
 /**
- * Main CLI interface that orchestrates the entire CLI workflow
+ * Main CLI interface that orchestrates the entire CLI workflow.
+ * Coordinates argument parsing, configuration loading, composition, and output.
  */
 export class CliInterface {
   private argumentParser: ArgumentParser;

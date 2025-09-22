@@ -1,5 +1,31 @@
 /**
- * Content parser for detecting and handling outlet markers in markdown
+ * Markdown content parser for slot and outlet detection.
+ *
+ * This module provides parsing utilities for detecting and replacing slot/outlet markers
+ * in markdown content. It handles special cases like code blocks where markers should be
+ * preserved and not replaced.
+ *
+ * The parser supports:
+ * - Detection of outlet/slot markers in HTML comments
+ * - Preservation of markers within code blocks
+ * - Extraction of outlet names from content
+ * - Replacement of outlets with resolved content
+ *
+ * @example
+ * ```typescript
+ * import { ContentParser } from './parser.ts';
+ *
+ * const parser = new ContentParser();
+ * const content = 'Hello <!-- slot: name -->!';
+ *
+ * if (parser.hasOutlets(content)) {
+ *   const names = parser.getOutletNames(content);
+ *   const result = parser.replaceOutlets(content, { name: 'World' });
+ *   console.log(result); // "Hello World!"
+ * }
+ * ```
+ *
+ * @module parser
  */
 
 /**
@@ -26,14 +52,17 @@ export interface OutletMatch {
 }
 
 /**
- * Parser for handling markdown content with outlet markers
+ * Parser for handling markdown content with outlet markers.
+ * Provides methods for detecting, extracting, and replacing outlet markers in markdown.
  */
 export class ContentParser {
   /** Regex pattern for matching outlet/slot markers */
   private static readonly OUTLET_PATTERN = /<!--\s*(outlet|slot):\s*([a-zA-Z0-9_-]+)\s*-->/g;
 
   /**
-   * Split content into segments, identifying code blocks to preserve them
+   * Split content into segments, identifying code blocks to preserve them.
+   * @param content The markdown content to analyze
+   * @returns Array of code block positions in the content
    */
   splitByCodeBlocks(content: string): CodeBlock[] {
     const codeBlocks: CodeBlock[] = [];
@@ -121,7 +150,9 @@ export class ContentParser {
   }
 
   /**
-   * Find all outlet markers in content, excluding those inside code blocks
+   * Find all outlet markers in content, excluding those inside code blocks.
+   * @param content The markdown content to search
+   * @returns Array of outlet matches found in the content
    */
   findOutlets(content: string): OutletMatch[] {
     const codeBlocks = this.splitByCodeBlocks(content);
@@ -152,7 +183,10 @@ export class ContentParser {
   }
 
   /**
-   * Replace outlet markers with provided content, preserving code blocks
+   * Replace outlet markers with provided content, preserving code blocks.
+   * @param content The markdown content containing outlet markers
+   * @param replacements Map of outlet names to replacement content
+   * @returns Content with all specified outlets replaced
    */
   replaceOutlets(content: string, replacements: Record<string, string>): string {
     const outlets = this.findOutlets(content);
@@ -174,7 +208,9 @@ export class ContentParser {
   }
 
   /**
-   * Get all outlet names found in content
+   * Get all outlet names found in content.
+   * @param content The markdown content to search
+   * @returns Array of unique outlet names found in the content
    */
   getOutletNames(content: string): string[] {
     const outlets = this.findOutlets(content);
@@ -182,7 +218,9 @@ export class ContentParser {
   }
 
   /**
-   * Check if content contains any outlet markers
+   * Check if content contains any outlet markers.
+   * @param content The markdown content to check
+   * @returns True if content contains at least one outlet marker
    */
   hasOutlets(content: string): boolean {
     return this.findOutlets(content).length > 0;

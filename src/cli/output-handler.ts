@@ -1,13 +1,39 @@
 /**
- * Output handler for the Markdown Slots CLI
- * Manages output formatting and destination (stdout vs file)
+ * Output handling and formatting for markdown-slots CLI.
+ *
+ * This module manages the output of composed markdown content and handles formatting
+ * of results, errors, and status messages. It supports multiple output destinations
+ * including stdout and file output with verbose logging capabilities.
+ *
+ * Features:
+ * - Flexible output destinations (stdout, file)
+ * - Error formatting and reporting
+ * - Verbose logging and status messages
+ * - File writing with proper error handling
+ * - Cross-platform path resolution
+ *
+ * @example
+ * ```typescript
+ * import { OutputHandler } from './output-handler.ts';
+ *
+ * const handler = new OutputHandler();
+ * await handler.handle(composeResult, {
+ *   template: 'template.md',
+ *   slots: {},
+ *   output: 'result.md',
+ *   verbose: true
+ * });
+ * ```
+ *
+ * @module output-handler
  */
 
 import { resolve } from '@std/path';
 import type { CliOptions, ComposeError, ComposeResult } from '../types.ts';
 
 /**
- * Handles CLI output formatting and destination management
+ * Handles CLI output formatting and destination management.
+ * Manages writing composed content to stdout or files with error reporting.
  */
 export class OutputHandler {
   /**

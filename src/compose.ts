@@ -1,3 +1,34 @@
+/**
+ * Core markdown composition API.
+ *
+ * This module provides the main public API for composing markdown documents with slot-based
+ * content replacement. It handles content loading from multiple sources (strings, files, async functions),
+ * recursive slot replacement, and circular dependency detection.
+ *
+ * @example
+ * ```typescript
+ * import { composeMarkdown } from '@stefanlegg/markdown-slots';
+ *
+ * // Simple composition with inline content
+ * const result = await composeMarkdown({
+ *   content: 'Hello <!-- slot: name -->!',
+ *   slots: { name: 'World' }
+ * });
+ * console.log(result.content); // "Hello World!"
+ *
+ * // Composition from files
+ * const result = await composeMarkdown({
+ *   file: './template.md',
+ *   slots: {
+ *     header: { file: './header.md' },
+ *     footer: { file: './footer.md' }
+ *   }
+ * });
+ * ```
+ *
+ * @module compose
+ */
+
 import type { ComposeOptions, ComposeResult, MarkdownNode } from './types.ts';
 import { CompositionEngine } from './composition-engine.ts';
 import { DenoFileSystem } from './filesystem.ts';

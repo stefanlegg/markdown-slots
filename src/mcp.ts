@@ -1,8 +1,33 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
 /**
- * MCP Server entry point for markdown-slots
- * Provides composition functionality via Model Context Protocol
+ * Model Context Protocol (MCP) server integration for markdown composition.
+ *
+ * This module provides an MCP server implementation that exposes markdown composition
+ * functionality to AI assistants and other MCP clients. The server provides tools for
+ * composing markdown content with slot-based templating.
+ *
+ * Features:
+ * - MCP server with stdio transport
+ * - Tools for template-based and file-based composition
+ * - Support for all composition options (error handling, caching, etc.)
+ * - Graceful shutdown handling
+ * - Comprehensive error reporting
+ *
+ * Available MCP Tools:
+ * - `compose_markdown`: Compose from template string with slots
+ * - `compose_from_file`: Compose from template file with slots
+ * - `detect_slots`: Detect available slots in markdown content
+ * - `validate_template`: Validate template syntax
+ *
+ * @example
+ * ```typescript
+ * // Start the MCP server
+ * const server = new MarkdownSlotsMcpServer();
+ * await server.start();
+ * ```
+ *
+ * @module mcp
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -19,10 +44,18 @@ import { DenoFileSystem } from './filesystem.ts';
 import { getVersion } from './version.ts';
 import type { ComposeOptions, MarkdownNode, MarkdownSlotSource } from './types.ts';
 
+/**
+ * MCP server implementation for markdown-slots.
+ * Provides composition tools via the Model Context Protocol.
+ */
 class MarkdownSlotsMcpServer {
   private server: Server;
   private fs: DenoFileSystem;
 
+  /**
+   * Creates a new MCP server instance for markdown-slots.
+   * Sets up tool handlers, error handling, and signal listeners.
+   */
   constructor() {
     this.fs = new DenoFileSystem();
     this.server = new Server(
@@ -53,6 +86,10 @@ class MarkdownSlotsMcpServer {
     }
   }
 
+  /**
+   * Sets up MCP tool handlers for the server.
+   * Registers handlers for list_tools and call_tool requests.
+   */
   private setupToolHandlers() {
     this.server.setRequestHandler(ListToolsRequestSchema, () => {
       return {
@@ -207,6 +244,11 @@ class MarkdownSlotsMcpServer {
     });
   }
 
+  /**
+   * Handles the compose_markdown tool call.
+   * @param args Tool arguments containing template, slots, and options
+   * @returns MCP tool response with composed markdown or error
+   */
   private async handleCompose(args: unknown) {
     try {
       const { template, slots, options = {} } = args as {
@@ -292,6 +334,11 @@ class MarkdownSlotsMcpServer {
     }
   }
 
+  /**
+   * Handles the compose_from_file tool call.
+   * @param args Tool arguments containing templateFile, slots, and options
+   * @returns MCP tool response with composed markdown or error
+   */
   private async handleComposeFromFile(args: unknown) {
     try {
       const { templateFile, slots, options = {} } = args as {
@@ -392,6 +439,11 @@ class MarkdownSlotsMcpServer {
     }
   }
 
+  /**
+   * Handles the detect_slots tool call.
+   * @param args Tool arguments containing template and optional isFile flag
+   * @returns MCP tool response with detected outlet names or error
+   */
   private async handleListOutlets(args: unknown) {
     try {
       const { template, isFile = false } = args as {
@@ -459,6 +511,10 @@ class MarkdownSlotsMcpServer {
     }
   }
 
+  /**
+   * Starts the MCP server and begins listening for requests.
+   * @returns Promise that resolves when the server is connected and running
+   */
   async run() {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);

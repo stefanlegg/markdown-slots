@@ -1,5 +1,32 @@
 /**
- * Core composition engine for resolving slots and composing markdown content
+ * Internal composition engine for markdown slot resolution.
+ *
+ * This module contains the core composition engine that orchestrates the markdown composition process.
+ * It handles recursive slot resolution, content loading from various sources, and manages composition
+ * state including dependency tracking and error handling.
+ *
+ * The engine supports:
+ * - Recursive slot replacement with depth limiting
+ * - Multiple content sources (strings, files, async functions)
+ * - Parallel and sequential processing modes
+ * - Content caching for improved performance
+ * - Comprehensive error handling strategies
+ *
+ * @example
+ * ```typescript
+ * import { CompositionEngine } from './composition-engine.ts';
+ * import { DenoFileSystem } from './filesystem.ts';
+ *
+ * const fs = new DenoFileSystem();
+ * const engine = new CompositionEngine(fs);
+ *
+ * const result = await engine.compose({
+ *   content: 'Template with <!-- slot: name -->',
+ *   slots: { name: 'replacement content' }
+ * });
+ * ```
+ *
+ * @module composition-engine
  */
 
 import type { ComposeOptions, ComposeResult, MarkdownNode, MarkdownSlotSource } from './types.ts';
@@ -8,19 +35,27 @@ import type { FileSystemAdapter } from './filesystem.ts';
 import { CircularDependencyTracker } from './dependency-tracker.ts';
 
 /**
- * Core engine for composing markdown content with slot resolution
+ * Core engine for composing markdown content with slot resolution.
+ * Manages the composition lifecycle and orchestrates all composition operations.
  */
 export class CompositionEngine {
   private readonly parser: ContentParser;
   private readonly fs: FileSystemAdapter;
 
+  /**
+   * Creates a new composition engine instance.
+   * @param fs The file system adapter to use for file operations
+   */
   constructor(fs: FileSystemAdapter) {
     this.parser = new ContentParser();
     this.fs = fs;
   }
 
   /**
-   * Main compose method that orchestrates the entire composition process
+   * Main compose method that orchestrates the entire composition process.
+   * @param node The markdown node to compose (can contain content, file path, or slots)
+   * @param options Composition options including error handling, caching, and performance settings
+   * @returns Promise resolving to the composed markdown content and any errors encountered
    */
   async compose(node: MarkdownNode, options: ComposeOptions = {}): Promise<ComposeResult> {
     const tracker = new CircularDependencyTracker(options.maxDepth ?? 10);
@@ -51,7 +86,13 @@ export class CompositionEngine {
   }
 
   /**
-   * Compose a single markdown node, resolving all its slots
+   * Compose a single markdown node, resolving all its slots.
+   * @param node The markdown node to compose
+   * @param options Composition options
+   * @param tracker Dependency tracker for circular reference detection
+   * @param errors Array to collect any errors during composition
+   * @param currentPath Current file path for relative resolution
+   * @returns Promise resolving to the composed markdown string
    */
   private async composeNode(
     node: MarkdownNode,
@@ -150,7 +191,14 @@ export class CompositionEngine {
   }
 
   /**
-   * Resolve all slots in content with their corresponding sources
+   * Resolve all slots in content with their corresponding sources.
+   * @param content The markdown content containing slot/outlet markers
+   * @param slots Map of slot names to their content sources
+   * @param options Composition options
+   * @param tracker Dependency tracker for circular reference detection
+   * @param errors Array to collect any errors during resolution
+   * @param currentPath Current file path for relative resolution
+   * @returns Promise resolving to content with all slots replaced
    */
   private async resolveSlots(
     content: string,
@@ -251,7 +299,15 @@ export class CompositionEngine {
   }
 
   /**
-   * Resolve a single slot source to its string content
+   * Resolve a single slot source to its string content.
+   * Handles strings, MarkdownNodes, and async functions.
+   * @param source The slot source to resolve (string, MarkdownNode, or async function)
+   * @param options Composition options
+   * @param tracker Dependency tracker for circular reference detection
+   * @param errors Array to collect any errors during resolution
+   * @param currentPath Current file path for relative resolution
+   * @returns Promise resolving to the slot content as a string
+   * @throws Error if resolution fails and error handling is set to throw
    */
   private async resolveSlotSource(
     source: MarkdownSlotSource,
