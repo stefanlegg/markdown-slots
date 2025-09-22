@@ -8,7 +8,7 @@ Run the version bump script to increment the package version and create a releas
 Execute the following command:
 
 ```bash
-deno run --allow-read --allow-write --allow-run scripts/version-bump.ts $ARGUMENTS
+deno run --allow-read --allow-write --allow-run tools/version-bump.ts $ARGUMENTS
 ```
 
 This will:

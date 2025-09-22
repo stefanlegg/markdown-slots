@@ -6,7 +6,7 @@ Thank you for your interest in contributing to Markdown Slots! This document pro
 
 ### Prerequisites
 
-- [Deno](https://deno.land/) 1.40 or higher
+- [Deno](https://deno.land/) 2.0 or higher
 - Basic knowledge of TypeScript
 - Familiarity with markdown and template systems
 
@@ -31,13 +31,6 @@ Thank you for your interest in contributing to Markdown Slots! This document pro
 
    # Type checking
    deno task check
-   ```
-
-3. **Try the examples**
-   ```bash
-   deno run --allow-read examples/basic-usage.ts
-   deno run --allow-read --allow-write examples/file-based.ts
-   deno run --allow-read --allow-write examples/advanced.ts
    ```
 
 ## 📋 Development Workflow
@@ -70,7 +63,6 @@ deno task dev               # Run in development mode
    ```
 
 2. **Make your changes**
-   - Follow the existing code style
    - Add tests for new functionality
    - Update documentation as needed
    - Ensure all tests pass
@@ -101,82 +93,27 @@ deno task dev               # Run in development mode
 
 ```
 markdown-slots/
-├── src/                    # Source code
-│   ├── mod.ts             # Main export file
-│   ├── compose.ts         # Main API function
-│   ├── composition-engine.ts # Core composition logic
-│   ├── parser.ts          # Content parsing utilities
-│   ├── filesystem.ts      # File system operations
-│   ├── dependency-tracker.ts # Circular dependency detection
-│   └── types.ts           # TypeScript type definitions
-├── tests/                 # Test files
-│   ├── compose_test.ts    # Main API tests
-│   ├── composition-engine_test.ts # Engine tests
-│   ├── parser_test.ts     # Parser tests
-│   ├── filesystem_test.ts # File system tests
-│   ├── dependency-tracker_test.ts # Dependency tests
-│   └── integration_*.ts   # Integration tests
-├── examples/              # Usage examples
-│   ├── basic-usage.ts     # Basic functionality
-│   ├── file-based.ts      # File-based composition
-│   └── advanced.ts        # Advanced features
-├── docs/                  # Documentation
-│   └── API.md            # API reference
-├── .kiro/                 # Project specifications
-│   └── specs/markdown-slots/
-│       ├── requirements.md # Project requirements
-│       ├── tasks.md       # Development tasks
-│       └── design.md      # Design decisions
-├── deno.json              # Deno configuration
-├── README.md              # Main documentation
-└── CONTRIBUTING.md        # This file
-```
-
-## 🧪 Testing Guidelines
-
-### Writing Tests
-
-- Use Deno's built-in test framework
-- Follow the existing test patterns
-- Test both success and error cases
-- Include integration tests for complex features
-- Aim for high test coverage
-
-### Test Structure
-
-```typescript
-import { assertEquals, assertRejects } from '@std/assert';
-import { yourFunction } from '../src/your-module.ts';
-
-Deno.test('YourModule', async (t) => {
-  await t.step('should handle basic case', () => {
-    // Test implementation
-  });
-
-  await t.step('should handle error case', async () => {
-    await assertRejects(
-      () => yourFunction(invalidInput),
-      Error,
-      'Expected error message',
-    );
-  });
-});
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-deno task test
-
-# Run specific test file
-deno task test tests/parser_test.ts
-
-# Run tests with coverage
-deno task test --coverage
-
-# Run tests in watch mode (if configured)
-deno task test:watch
+├── src/                       # Source code
+│   ├── cli/                   # CLI implementation modules
+│   ├── mod.ts                 # Main library export
+│   ├── compose.ts             # Public API function
+│   ├── composition-engine.ts  # Core composition logic
+│   ├── types.ts               # TypeScript type definitions
+│   └── ...                    # Additional utilities and modules
+├── tests/                     # Test suite
+│   ├── cli/                   # CLI-specific tests
+│   ├── fixtures/              # Test fixture files
+│   └── *.test.ts              # Unit and integration tests
+├── docs/                      # Documentation
+│   ├── examples/              # Example templates and usage
+│   └── troubleshooting.md     # Common issues and solutions
+├── tools/                     # Utility scripts
+│   └── version-bump.ts        # Version management
+├── .kiro/specs/               # Project specifications
+├── cli.ts                     # CLI entry point
+├── deno.json                  # Deno configuration
+├── README.md                  # Project documentation
+└── CONTRIBUTING.md            # Contribution guidelines
 ```
 
 ## 📝 Code Style Guidelines
@@ -346,29 +283,6 @@ docs(readme): update installation instructions
 test(engine): add integration tests for file composition
 ```
 
-## 🎯 Areas for Contribution
-
-### High Priority
-
-- [ ] Performance optimizations
-- [ ] Additional error handling strategies
-- [ ] More comprehensive examples
-- [ ] Documentation improvements
-
-### Medium Priority
-
-- [ ] Additional file system adapters
-- [ ] Plugin system for custom slot sources
-- [ ] CLI tool for markdown composition
-- [ ] VS Code extension
-
-### Low Priority
-
-- [ ] Alternative outlet syntaxes
-- [ ] Markdown preprocessing hooks
-- [ ] Custom caching strategies
-- [ ] Metrics and analytics
-
 ## 📞 Getting Help
 
 - **Issues**: Use GitHub issues for bugs and feature requests
@@ -380,7 +294,6 @@ test(engine): add integration tests for file composition
 All contributors will be recognized in:
 
 - README.md contributors section
-- Release notes for significant contributions
 - GitHub contributors page
 
 ## 📜 Code of Conduct
