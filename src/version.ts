@@ -165,7 +165,7 @@ export async function checkForUpdate(
   if (isOutdated(currentVersion, latestVersion)) {
     return {
       latestVersion,
-      updateCommand: 'deno install -grf jsr:@stefanlegg/markdown-slots/cli',
+      updateCommand: `deno install -grf jsr:@stefanlegg/markdown-slots@${latestVersion}/cli`,
     };
   }
 
