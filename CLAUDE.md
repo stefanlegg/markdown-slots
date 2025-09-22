@@ -13,7 +13,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `deno task fmt:check` - Check code formatting without making changes
 - `deno task lint` - Run linter with recommended rules
 - `deno task check` - Type check the entire project
-- `deno task build` - Run build script (build.ts)
 - `deno task publish` - Publish to Deno registry
 
 ### Development
@@ -21,7 +20,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `deno task dev` - Run in development mode with watch mode
 - `deno run -A cli.ts` - Run CLI tool directly from source
 - `deno run -A jsr:@stefanlegg/markdown-slots/cli` - Run CLI from JSR registry
-- `deno run --allow-read examples/basic-usage.ts` - Test basic functionality
 
 ## Architecture Overview
 
@@ -43,6 +41,7 @@ This is a TypeScript library for composing markdown content with slot-based temp
 - `parser.ts` - Markdown content parsing and slot/outlet detection
 - `filesystem.ts` - File system operations with cross-platform support
 - `dependency-tracker.ts` - Circular dependency detection and prevention
+- `mcp.ts` - Model Context Protocol (MCP) integration for AI assistants
 - `types.ts` - TypeScript type definitions for all components
 
 **CLI Implementation** (`src/cli/`):
