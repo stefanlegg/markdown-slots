@@ -107,7 +107,7 @@ markdown-slots/
 ├── docs/                      # Documentation
 │   ├── examples/              # Example templates and usage
 │   └── troubleshooting.md     # Common issues and solutions
-├── scripts/                   # Utility scripts
+├── tools/                     # Utility scripts
 │   └── version-bump.ts        # Version management
 ├── .kiro/specs/               # Project specifications
 ├── cli.ts                     # CLI entry point

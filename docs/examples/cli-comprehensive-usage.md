@@ -772,7 +772,7 @@ project/
 │   ├── content/           # Content files
 │   ├── configs/           # JSON configurations
 │   └── output/            # Generated files
-├── scripts/
+├── tools/
 │   └── generate-docs.sh   # Build scripts
 └── package.json           # NPM scripts
 ```
